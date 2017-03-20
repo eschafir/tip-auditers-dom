@@ -15,11 +15,22 @@ class User {
 	@Id
 	@GeneratedValue
 	private Long id
-	
+
 	@Column
 	String name
-	
+
+	@Column
+	String password
+
 	@Column
 	String email
 
+	Role role
+
+	new() {
+		name = null
+		password = null
+		email = null
+		role = null
+	}
 }
