@@ -50,6 +50,12 @@ class Revision {
 		revisitonState = new Nueva
 	}
 
+	def addRequirement(Requirement r) {
+		if (!requirements.contains(r)) {
+			requirements.add(r)
+		}
+	}
+
 	def int completedRequirements() {
 		var amount = 0
 		for (Requirement r : requirements) {
@@ -57,11 +63,12 @@ class Revision {
 				amount += 1
 			}
 		}
-		return 0
+		return amount
+
 	}
 
 	def float average() {
-		return 0
+		return ((completedRequirements * 100) / requirements.size)
 	}
 
 }

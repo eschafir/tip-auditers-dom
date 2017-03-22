@@ -25,7 +25,7 @@ class Requirement {
 	String descripcion
 
 	@Column
-	RequirementState requirementState
+	RequirementState requirementState = new Pendiente
 
 	/**
 	 * Agregar propiedad de adjunto
@@ -33,13 +33,11 @@ class Requirement {
 	new() {
 		name = ""
 		descripcion = ""
-		requirementState = new Pendiente
 	}
 
 	new(String name, String description) {
 		this.name = name
 		this.descripcion = description
-		requirementState = new Pendiente
 	}
 
 }
