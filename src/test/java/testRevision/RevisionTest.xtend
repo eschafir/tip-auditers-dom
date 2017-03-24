@@ -30,6 +30,6 @@ class RevisionTest {
 	def void testCompletedRequirements() {
 		revision.addRequirement(requirement1)
 		revision.addRequirement(requirement2)
-		assertEquals(revision.completedRequirements, 2)
+		assertEquals(revision.completedRequirements, 0)
 	}
 }
