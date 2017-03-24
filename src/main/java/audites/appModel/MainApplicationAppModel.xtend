@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
-class RevisionAppModel {
+class MainApplicationAppModel {
 	
 	User userLoged
 	Revision selectedRevision

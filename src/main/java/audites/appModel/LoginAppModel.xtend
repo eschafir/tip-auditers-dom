@@ -5,6 +5,7 @@ import audites.repos.RepoUsers
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.Dependencies
 
 @Observable
 @Accessors
@@ -47,6 +48,11 @@ class LoginAppModel {
 	def obtainUser() {
 		return RepoUsers.instance.searchByExample(userLoged).head
 
+	}
+
+	@Dependencies("passwordSubmited")
+	def boolean getPasswordIngresed() {
+		passwordSubmited != ""
 	}
 
 }

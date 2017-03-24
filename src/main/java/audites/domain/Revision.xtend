@@ -57,11 +57,14 @@ class Revision {
 			//
 		}
 		return amount
-
 	}
 
 	def float average() {
 		return ((completedRequirements * 100) / requirements.size)
+	}
+
+	def Boolean isCompleted() {
+		return (completedRequirements == requirements.size)
 	}
 
 }

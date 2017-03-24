@@ -21,6 +21,9 @@ class Requirement {
 
 	@Column
 	String descripcion
+	
+	@Column
+	Boolean isCompleted = false
 
 	/**
 	 * Agregar propiedad de adjunto

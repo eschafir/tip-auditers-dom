@@ -9,10 +9,12 @@ import audites.domain.User
 import audites.domain.Department
 import audites.domain.Revision
 import audites.domain.Requirement
+import audites.domain.Role
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
-		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Requirement).buildSessionFactory()
+		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Requirement).
+		addAnnotatedClass(Role).buildSessionFactory()
 
 	def abstract Class<T> getEntityType()
 

@@ -8,6 +8,7 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import javax.persistence.FetchType
 
 @Observable
 @Accessors
@@ -30,6 +31,9 @@ class User {
 	@Column
 	@OneToMany
 	Set<Department> departments = newHashSet()
+	
+	@OneToMany(fetch=FetchType.EAGER)
+	Set<Role> roles = newHashSet()
 
 	new() {
 		name = ""
@@ -37,9 +41,27 @@ class User {
 		email = ""
 	}
 
+	new(String n, String p, String m) {
+		name = n
+		password = p
+		email = m
+	}
+
 	def void addDepartment(Department dep) {
 		if (!departments.contains(dep)) {
 			departments.add(dep)
 		}
+	}
+
+	def getRevisions() {
+		var revisions = newHashSet()
+		for (Department d : departments) {
+			for (Revision r : d.revisions) {
+				if (!revisions.contains(r)) {
+					revisions.add(r)
+				}
+			}
+		}
+		return revisions
 	}
 }
