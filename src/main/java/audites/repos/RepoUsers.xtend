@@ -20,8 +20,8 @@ class RepoUsers extends RepoDefault<User> {
 	}
 
 	override addQueryByExample(Criteria criteria, User user) {
-		if (user.name != null) {
-			criteria.add(Restrictions.eq("name", user.name))
+		if (user.email != null) {
+			criteria.add(Restrictions.eq("email", user.email))
 		}
 	}
 	

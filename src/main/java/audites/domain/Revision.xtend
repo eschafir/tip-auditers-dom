@@ -1,19 +1,17 @@
 package audites.domain
 
-import audites.domain.States.RevisionState.RevisionState
 import java.time.LocalDate
-import java.util.List
+import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import audites.domain.States.RequirementState.Completado
-import audites.domain.States.RevisionState.Nueva
 
 @Observable
 @Accessors
@@ -33,21 +31,18 @@ class Revision {
 	@Column
 	LocalDate endDate
 
-	@Column
-	User responsable
+	@ManyToOne(cascade=CascadeType.ALL)
+	Department responsable
 
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	List<Requirement> requirements = newArrayList
-
-	@Column
-	RevisionState revisitonState
+	Set<Requirement> requirements
 
 	new() {
 		name = ""
 		initDate = LocalDate.now
 		endDate = LocalDate.MAX
-		responsable = null
-		revisitonState = new Nueva
+		responsable = new Department
+		requirements = newHashSet()
 	}
 
 	def addRequirement(Requirement r) {
@@ -59,9 +54,7 @@ class Revision {
 	def int completedRequirements() {
 		var amount = 0
 		for (Requirement r : requirements) {
-			if (r.requirementState.class == Completado) {
-				amount += 1
-			}
+			//
 		}
 		return amount
 

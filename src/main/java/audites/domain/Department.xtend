@@ -1,17 +1,23 @@
 package audites.domain
 
-import java.util.Set
-import javax.persistence.FetchType
-import javax.persistence.OneToMany
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import javax.persistence.Entity
-import javax.persistence.Column
+import javax.persistence.OneToMany
+import javax.persistence.CascadeType
+import java.util.Set
 
 @Observable
 @Accessors
 @Entity
 class Department {
+
+	@Id
+	@GeneratedValue
+	private Long id
 
 	@Column(length=100)
 	String name
@@ -19,18 +25,18 @@ class Department {
 	@Column(length=100)
 	String email
 
-	@OneToMany(fetch=FetchType.LAZY)
-	Set<User> users = newHashSet
+	@OneToMany(cascade=CascadeType.ALL)
+	Set<Revision> revisions = newHashSet()
 
-	def addUser(User user) {
-		if (!users.contains(user)) {
-			users.add(user)
+	new() {
+		name = ""
+		email = ""
+	}
+
+	def void addRevision(Revision rev) {
+		if (!revisions.contains(rev)) {
+			revisions.add(rev)
 		}
 	}
 
-	def removeUser(User user) {
-		if (users.contains(user)) {
-			users.remove(user)
-		}
-	}
 }

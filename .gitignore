@@ -1,4 +1,5 @@
 /src/main/generated-sources/
+/src/main/generated-sources/xtend/
 .settings
 .classpath
 .project
