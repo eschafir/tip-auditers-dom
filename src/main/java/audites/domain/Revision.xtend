@@ -22,6 +22,9 @@ class Revision {
 	@GeneratedValue
 	private Long id
 
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	User author
+
 	@Column
 	String name
 
@@ -35,14 +38,14 @@ class Revision {
 	Department responsable
 
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	Set<Requirement> requirements
+	Set<Requirement> requirements = newHashSet()
 
 	new() {
+		author = new User
 		name = ""
 		initDate = LocalDate.now
 		endDate = LocalDate.MAX
 		responsable = new Department
-		requirements = newHashSet()
 	}
 
 	def addRequirement(Requirement r) {

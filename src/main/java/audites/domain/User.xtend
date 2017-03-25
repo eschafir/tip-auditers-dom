@@ -1,14 +1,16 @@
 package audites.domain
 
+import java.util.List
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import javax.persistence.FetchType
 
 @Observable
 @Accessors
@@ -31,9 +33,12 @@ class User {
 	@Column
 	@OneToMany
 	Set<Department> departments = newHashSet()
-	
-	@OneToMany(fetch=FetchType.EAGER)
-	Set<Role> roles = newHashSet()
+
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	List<Role> roles = newArrayList()
+
+	@OneToMany
+	Set<Revision> revisions = newHashSet()
 
 	new() {
 		name = ""
@@ -54,7 +59,6 @@ class User {
 	}
 
 	def getRevisions() {
-		var revisions = newHashSet()
 		for (Department d : departments) {
 			for (Revision r : d.revisions) {
 				if (!revisions.contains(r)) {
@@ -64,4 +68,5 @@ class User {
 		}
 		return revisions
 	}
+
 }

@@ -1,20 +1,22 @@
 package audites.repos
 
+import audites.domain.Admin
+import audites.domain.Department
+import audites.domain.Requirement
+import audites.domain.Revision
+import audites.domain.User
 import java.util.List
 import org.hibernate.Criteria
 import org.hibernate.HibernateException
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
-import audites.domain.User
-import audites.domain.Department
-import audites.domain.Revision
-import audites.domain.Requirement
-import audites.domain.Role
+import audites.domain.Auditor
+import audites.domain.Audited
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
 		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Requirement).
-		addAnnotatedClass(Role).buildSessionFactory()
+		addAnnotatedClass(Admin).addAnnotatedClass(Auditor).addAnnotatedClass(Audited).buildSessionFactory()
 
 	def abstract Class<T> getEntityType()
 

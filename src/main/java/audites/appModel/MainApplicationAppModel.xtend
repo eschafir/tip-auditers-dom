@@ -1,6 +1,5 @@
 package audites.appModel
 
-import audites.domain.Revision
 import audites.domain.User
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
@@ -8,11 +7,14 @@ import org.uqbar.commons.utils.Observable
 @Observable
 @Accessors
 class MainApplicationAppModel {
-	
+
 	User userLoged
-	Revision selectedRevision
-	
-	new(){}
-	
-	
+
+	new() {
+		userLoged = new User
+	}
+
+	new(User user) {
+		userLoged = user
+	}
 }

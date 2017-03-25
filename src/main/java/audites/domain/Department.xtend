@@ -9,6 +9,7 @@ import org.uqbar.commons.utils.Observable
 import javax.persistence.OneToMany
 import javax.persistence.CascadeType
 import java.util.Set
+import javax.persistence.FetchType
 
 @Observable
 @Accessors
@@ -25,7 +26,7 @@ class Department {
 	@Column(length=100)
 	String email
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Set<Revision> revisions = newHashSet()
 
 	new() {
