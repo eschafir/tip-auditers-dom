@@ -13,13 +13,11 @@ import java.util.List
 @Accessors
 class NewRevisionAppModel extends MainApplicationAppModel {
 
-	RepoRevisions repo
 	List<Department> departments
 	Revision revision
 	Department selectedDepartment
 
 	new() {
-		repo = RepoRevisions.instance
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedDepartment = new Department
@@ -27,14 +25,17 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(User user) {
 		super(user)
-		repo = RepoRevisions.instance
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedDepartment = new Department
 	}
 
 	def createRevison() {
-		repo.create(revision)
+		revision.author = userLoged
+		userLoged.revisions.add(revision)
+		selectedDepartment.addRevision(revision)
+		RepoRevisions.instance.create(revision)
+		RepoDepartments.instance.update(selectedDepartment)
 	}
 
 }

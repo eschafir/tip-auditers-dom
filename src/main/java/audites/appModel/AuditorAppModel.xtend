@@ -13,7 +13,6 @@ class AuditorAppModel extends MainApplicationAppModel {
 
 	Set<Department> departments = newHashSet()
 	Department departmentSelected
-	Set<Revision> revisions = newHashSet()
 	Revision revisionSelected
 
 	new() {

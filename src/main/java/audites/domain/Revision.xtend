@@ -1,6 +1,7 @@
 package audites.domain
 
 import java.time.LocalDate
+import java.util.Date
 import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import java.util.Calendar
 
 @Observable
 @Accessors
@@ -22,17 +24,20 @@ class Revision {
 	@GeneratedValue
 	private Long id
 
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	User author
 
 	@Column
 	String name
 
 	@Column
-	LocalDate initDate
+	String description
 
 	@Column
-	LocalDate endDate
+	Date initDate
+
+	@Column
+	Date endDate
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	Department responsable
@@ -43,8 +48,9 @@ class Revision {
 	new() {
 		author = new User
 		name = ""
-		initDate = LocalDate.now
-		endDate = LocalDate.MAX
+		description = ""
+		initDate = Calendar.instance.time
+		endDate = new Date(2017, 04, 16)
 		responsable = new Department
 	}
 
