@@ -6,6 +6,7 @@ import audites.domain.User
 import java.util.Set
 import audites.domain.Department
 import audites.domain.Revision
+import org.uqbar.commons.utils.Dependencies
 
 @Observable
 @Accessors
@@ -25,5 +26,10 @@ class AuditorAppModel extends MainApplicationAppModel {
 		super(user)
 		departmentSelected = new Department
 		revisionSelected = new Revision
+	}
+
+	@Dependencies("revisionSelected")
+	def boolean getRevisionIsSelected() {
+		revisionSelected.name != ""
 	}
 }

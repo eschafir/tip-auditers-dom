@@ -10,6 +10,7 @@ import javax.persistence.OneToMany
 import javax.persistence.CascadeType
 import java.util.Set
 import javax.persistence.FetchType
+import org.uqbar.commons.model.UserException
 
 @Observable
 @Accessors
