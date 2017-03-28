@@ -1,4 +1,4 @@
-# Audites
+# Auditers
 
 Audites es un Software de gestión de Auditoría pensado para ser utilizado tanto por auditores como también para todas las áreas auditadas, para llevar adelante de forma centralizada y organizada todo el proceso de auditoría.
 
