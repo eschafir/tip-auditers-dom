@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd"> 
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
 <!-- "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"> -->
 
 <hibernate-configuration>
@@ -13,7 +13,7 @@
 		</property>
 
 		<property name="hibernate.connection.url">
-			jdbc:mysql://localhost/audites
+			jdbc:mysql://localhost/auditers
 		</property>
 		<property name="hibernate.connection.username">
 			root
@@ -26,5 +26,5 @@
 		<property name="format_sql">true</property>
 
 	</session-factory>
-	
+
 </hibernate-configuration>

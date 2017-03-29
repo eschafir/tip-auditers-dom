@@ -17,4 +17,5 @@ class MainApplicationAppModel {
 	new(User user) {
 		userLoged = user
 	}
+
 }

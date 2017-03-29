@@ -29,7 +29,7 @@ public class Department {
   @Column(length = 100)
   private String email;
   
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   private Set<Revision> revisions = CollectionLiterals.<Revision>newHashSet();
   
   public Department() {

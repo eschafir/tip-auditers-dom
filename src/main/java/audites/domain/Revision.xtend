@@ -1,6 +1,6 @@
 package audites.domain
 
-import java.time.LocalDate
+import java.util.Calendar
 import java.util.Date
 import java.util.Set
 import javax.persistence.CascadeType
@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import java.util.Calendar
 
 @Observable
 @Accessors
@@ -24,7 +23,7 @@ class Revision {
 	@GeneratedValue
 	private Long id
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	User author
 
 	@Column
@@ -46,12 +45,12 @@ class Revision {
 	Set<Requirement> requirements = newHashSet()
 
 	new() {
-		author = new User
+		author = null
 		name = ""
 		description = ""
 		initDate = Calendar.instance.time
-		endDate = new Date(2017, 04, 16)
-		responsable = new Department
+		endDate = new Date
+		responsable = null
 	}
 
 	def addRequirement(Requirement r) {

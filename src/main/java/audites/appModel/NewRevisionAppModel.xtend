@@ -9,6 +9,7 @@ import audites.repos.RepoRevisions
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.Dependencies
 
 @Observable
 @Accessors
@@ -23,7 +24,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
-		selectedDepartment = new Department
+		selectedDepartment = null
 	}
 
 	new(User user) {
@@ -31,7 +32,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
-		selectedDepartment = new Department
+		selectedDepartment = null
 	}
 
 	new(Requirement requirement, Revision revision) {
@@ -43,6 +44,17 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		this.revision = revision
 	}
 
+	def List<Department> getDepartments() {
+		var list = newArrayList()
+		val allDep = RepoDepartments.instance.allInstances
+		for (Department d : allDep) {
+			if (!list.contains(d) && d.name != "") {
+				list.add(d)
+			}
+		}
+		return list
+	}
+
 	def createRevison() {
 		revision.author = userLoged
 		userLoged.revisions.add(revision)
@@ -51,8 +63,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoDepartments.instance.update(selectedDepartment)
 	}
 
+	@Dependencies("selectedRequirement")
 	def boolean hasRequirements() {
-		(revision.requirements.size > 0)
+		selectedRequirement.name != ""
 	}
 
 	def String getRevisionName() {
