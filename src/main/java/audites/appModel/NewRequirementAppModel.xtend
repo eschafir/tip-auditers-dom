@@ -37,5 +37,23 @@ class NewRequirementAppModel extends MainApplicationAppModel {
 		revision.addRequirement(requirement)
 		RepoRevisions.instance.update(revision)
 	}
+	
+	def String getReqName() {
+		return requirement.name
+	}
+
+	def void setReqName(String name) {
+		requirement.name = name
+		RepoRequirements.instance.update(requirement)
+	}
+
+	def String getReqDescription() {
+		return requirement.descripcion
+	}
+
+	def void setReqDescription(String desc) {
+		requirement.descripcion = desc
+		RepoRequirements.instance.update(requirement)
+	}
 
 }

@@ -64,6 +64,20 @@ abstract class RepoDefault<T> {
 		}
 	}
 
+	def void remove(T t) {
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.delete(t)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+
 	def void update(T t) {
 		val session = sessionFactory.openSession
 		try {

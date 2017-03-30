@@ -8,8 +8,8 @@ import audites.repos.RepoDepartments
 import audites.repos.RepoRevisions
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -57,14 +57,21 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	def createRevison() {
 		revision.author = userLoged
+		revision.responsable = selectedDepartment
 		userLoged.revisions.add(revision)
 		selectedDepartment.addRevision(revision)
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
 	}
 
+	def deleteRequirement() {
+		// RepoRequirements.instance.remove(selectedRequirement)
+		revision.requirements.remove(selectedRequirement)
+		RepoRevisions.instance.update(revision)
+	}
+
 	@Dependencies("selectedRequirement")
-	def boolean hasRequirements() {
+	def boolean getHasRequirements() {
 		selectedRequirement.name != ""
 	}
 
@@ -76,4 +83,5 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision.name = name
 		RepoRevisions.instance.update(revision)
 	}
+
 }
