@@ -10,6 +10,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.UserException
 
 @Observable
 @Accessors
@@ -55,6 +56,20 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		return list
 	}
 
+	@Dependencies("selectedRequirement")
+	def boolean getHasRequirements() {
+		selectedRequirement.name != ""
+	}
+
+	def String getRevisionName() {
+		this.revision.name
+	}
+
+	def void setRevisionName(String name) {
+		revision.name = name
+		RepoRevisions.instance.update(revision)
+	}
+
 	def createRevison() {
 		revision.author = userLoged
 		revision.responsable = selectedDepartment
@@ -70,18 +85,19 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.update(revision)
 	}
 
-	@Dependencies("selectedRequirement")
-	def boolean getHasRequirements() {
-		selectedRequirement.name != ""
+	def validateRevision() {
+		if (revision.name == "") {
+			throw new UserException("Ingresa el nombre de la revision.")
+		}
+		if (selectedDepartment == null) {
+			throw new UserException("Ingresa un departamento.")
+		}
 	}
 
-	def String getRevisionName() {
-		this.revision.name
-	}
-
-	def void setRevisionName(String name) {
-		revision.name = name
-		RepoRevisions.instance.update(revision)
+	def validateSavedRevision() {
+		if (RepoRevisions.instance.searchByExample(revision).empty) {
+			throw new UserException("Por favor guarda los cambios de la revision antes de agregar requerimientos.")
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ import audites.domain.Requirement
 import audites.repos.RepoRevisions
 import audites.repos.RepoRequirements
 import audites.domain.User
+import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -54,6 +55,15 @@ class NewRequirementAppModel extends MainApplicationAppModel {
 	def void setReqDescription(String desc) {
 		requirement.descripcion = desc
 		RepoRequirements.instance.update(requirement)
+	}
+	
+	def validateRequirement() {
+		if(requirement.name == ""){
+			throw new UserException("Ingresa el nombre del requerimiento.")
+		}
+		if(requirement.descripcion ==""){
+			throw new UserException("Ingresa el comentario del requerimiento.")
+		}
 	}
 
 }
