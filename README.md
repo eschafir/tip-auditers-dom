@@ -6,4 +6,4 @@ Auditers es un Software de gestión de Auditoría pensado para ser utilizado tan
 * [Trello](https://trello.com/b/DpnhgKCe/tip-audites)
 
 
-[![Build Status](https://travis-ci.org/eschafir/tip-audites-dom.svg?branch=master)](https://travis-ci.org/eschafir/tip-audites-dom)
+[![Build Status](https://travis-ci.org/eschafir/tip-auditers-dom.svg?branch=master)](https://travis-ci.org/eschafir/tip-auditers-dom)
