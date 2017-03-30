@@ -3,6 +3,7 @@ package audites.repos
 import org.hibernate.Criteria
 import org.hibernate.criterion.Restrictions
 import audites.domain.User
+import org.apache.commons.codec.digest.DigestUtils
 
 class RepoUsers extends RepoDefault<User> {
 
@@ -19,11 +20,14 @@ class RepoUsers extends RepoDefault<User> {
 		typeof(User)
 	}
 
+	override create(User t) {
+		t.password = DigestUtils.sha256Hex(t.password)
+		super.create(t)
+	}
+
 	override addQueryByExample(Criteria criteria, User user) {
 		if (user.email != null) {
 			criteria.add(Restrictions.eq("email", user.email))
 		}
 	}
-	
-
 }

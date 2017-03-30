@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
+import org.apache.commons.codec.digest.DigestUtils
 
 @Observable
 @Accessors
@@ -40,7 +41,7 @@ class LoginAppModel {
 	}
 
 	def validatePassword(String string) {
-		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == string]) {
+		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
 			throw new UserException("Clave incorrecta")
 		}
 	}

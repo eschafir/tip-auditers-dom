@@ -1,5 +1,6 @@
 package audites.domain
 
+import java.util.List
 import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -10,7 +11,6 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import java.util.List
 
 @Observable
 @Accessors
