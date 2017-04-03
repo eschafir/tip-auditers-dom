@@ -9,13 +9,16 @@ import org.uqbar.commons.utils.Observable
 class MainApplicationAppModel {
 
 	User userLoged
+	String image
 
 	new() {
 		userLoged = new User
+		image = null
 	}
 
 	new(User user) {
 		userLoged = user
+		image = null
 	}
 
 }

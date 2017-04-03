@@ -9,8 +9,8 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -23,7 +23,7 @@ class Revision {
 	@GeneratedValue
 	private Long id
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	User author
 
 	@Column
@@ -41,7 +41,7 @@ class Revision {
 	@ManyToOne(cascade=CascadeType.ALL)
 	Department responsable
 
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Requirement> requirements = newHashSet()
 
 	new() {

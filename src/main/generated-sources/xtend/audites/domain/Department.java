@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
@@ -29,7 +29,7 @@ public class Department {
   @Column(length = 100)
   private String email;
   
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   private Set<Revision> revisions = CollectionLiterals.<Revision>newHashSet();
   
   public Department() {

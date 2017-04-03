@@ -7,7 +7,7 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.ManyToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -26,7 +26,7 @@ class Department {
 	@Column(length=100)
 	String email
 
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	Set<Revision> revisions = newHashSet()
 
 	new() {
