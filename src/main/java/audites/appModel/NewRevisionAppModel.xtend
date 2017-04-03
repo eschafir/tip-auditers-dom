@@ -61,6 +61,11 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		selectedRequirement.name != ""
 	}
 
+	@Dependencies("selectedDepartment")
+	def boolean getDepartmentIngresed() {
+		selectedDepartment != null
+	}
+
 	def String getRevisionName() {
 		this.revision.name
 	}
@@ -94,10 +99,10 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		}
 	}
 
-	def validateSavedRevision() {
-		if (RepoRevisions.instance.searchByExample(revision).empty) {
-			throw new UserException("Por favor guarda los cambios de la revision antes de agregar requerimientos.")
-		}
-	}
-
+//	def validateSavedRevision() {
+//		if (RepoRevisions.instance.searchByExample(revision).empty) {
+//			//throw new UserException("Por favor guarda los cambios de la revision antes de agregar requerimientos.")
+//			RepoRevisions.instance.create(revision)
+//		}
+//	}
 }
