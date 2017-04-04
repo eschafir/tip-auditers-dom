@@ -29,7 +29,7 @@ class Revision {
 	@Column
 	String name
 
-	@Column
+	@Column(length=500)
 	String description
 
 	@Column

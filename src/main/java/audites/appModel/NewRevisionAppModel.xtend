@@ -28,7 +28,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
-		file =""
+		file = ""
 	}
 
 	new(User user) {
@@ -37,7 +37,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
-		file =""
+		file = ""
 	}
 
 	new(Requirement requirement, Revision revision) {
@@ -47,6 +47,13 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(Revision revision) {
 		this.revision = revision
+	}
+
+	new(Revision revision, User user) {
+		this.revision = revision
+		this.userLoged = user
+		selectedRequirement = revision.requirements.head
+		selectedDepartment = null
 	}
 
 	def List<Department> getDepartments() {
@@ -114,9 +121,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 			throw new UserException("Ingresa un departamento.")
 		}
 	}
-	
+
 	def openDocument() {
 		file
 	}
-	
+
 }

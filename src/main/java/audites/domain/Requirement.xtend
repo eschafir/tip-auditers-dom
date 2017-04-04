@@ -19,7 +19,7 @@ class Requirement {
 	@Column
 	String name
 
-	@Column
+	@Column(length=500)
 	String descripcion
 
 	@Column
