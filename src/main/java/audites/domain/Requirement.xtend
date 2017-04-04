@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
@@ -36,6 +37,19 @@ class Requirement {
 	new(String name, String description) {
 		this.name = name
 		this.descripcion = description
+	}
+
+	def void setIsCompleted(Boolean b) {
+		isCompleted = b
+		ObservableUtils.firePropertyChanged(this, "requirementStatus")
+	}
+
+	def String getRequirementStatus() {
+		if (isCompleted) {
+			"Completado"
+		} else {
+			"Pendiente"
+		}
 	}
 
 }

@@ -5,13 +5,13 @@ import audites.domain.Requirement
 import audites.domain.Revision
 import audites.domain.User
 import audites.repos.RepoDepartments
+import audites.repos.RepoRequirements
 import audites.repos.RepoRevisions
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.model.UserException
-import audites.repos.RepoRequirements
 
 @Observable
 @Accessors
@@ -120,10 +120,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		if (selectedDepartment == null) {
 			throw new UserException("Ingresa un departamento.")
 		}
-	}
-
-	def openDocument() {
-		file
 	}
 
 }
