@@ -11,6 +11,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.UserException
+import audites.repos.RepoRequirements
 
 @Observable
 @Accessors
@@ -20,12 +21,14 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	Revision revision
 	Requirement selectedRequirement
 	Department selectedDepartment
+	String file
 
 	new() {
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
+		file =""
 	}
 
 	new(User user) {
@@ -34,6 +37,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
+		file =""
 	}
 
 	new(Requirement requirement, Revision revision) {
@@ -58,7 +62,12 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	@Dependencies("selectedRequirement")
 	def boolean getHasRequirements() {
-		selectedRequirement.name != ""
+		/**
+		 * Con esta linea se grisan las 2 opciones de Editar y Eliminar, pero al eliminar un requerimiento
+		 * la aplicacion da un RuntimeException
+		 */
+		// selectedRequirement.name != ""
+		selectedRequirement != null
 	}
 
 	@Dependencies("selectedDepartment")
@@ -75,6 +84,15 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.update(revision)
 	}
 
+	def String getRevisionComment() {
+		this.revision.description
+	}
+
+	def void setRevisionComment(String comment) {
+		revision.description = comment
+		RepoRevisions.instance.update(revision)
+	}
+
 	def createRevison() {
 		revision.author = userLoged
 		revision.responsable = selectedDepartment
@@ -85,9 +103,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	}
 
 	def deleteRequirement() {
-		// RepoRequirements.instance.remove(selectedRequirement)
-		revision.requirements.remove(selectedRequirement)
-		RepoRevisions.instance.update(revision)
+		RepoRequirements.instance.remove(selectedRequirement, revision)
 	}
 
 	def validateRevision() {
@@ -98,11 +114,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 			throw new UserException("Ingresa un departamento.")
 		}
 	}
-
-//	def validateSavedRevision() {
-//		if (RepoRevisions.instance.searchByExample(revision).empty) {
-//			//throw new UserException("Por favor guarda los cambios de la revision antes de agregar requerimientos.")
-//			RepoRevisions.instance.create(revision)
-//		}
-//	}
+	
+	def openDocument() {
+		file
+	}
+	
 }

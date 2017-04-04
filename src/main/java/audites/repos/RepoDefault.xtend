@@ -23,13 +23,6 @@ abstract class RepoDefault<T> {
 
 	def abstract void addQueryByExample(Criteria criteria, T t)
 
-//	def static Session getSession() throws HibernateException {
-//		return sessionFactory.openSession();
-//	}
-//	def openSession() {
-//		sessionFactory.openSession
-//	}
-//
 	static Session session = sessionFactory.openSession
 
 	def List<T> allInstances() {
@@ -51,7 +44,6 @@ abstract class RepoDefault<T> {
 		try {
 			session.beginTransaction
 			session.save(t)
-//			session.update(t)
 			session.getTransaction.commit
 		} catch (HibernateException e) {
 			session.getTransaction.rollback
@@ -73,7 +65,6 @@ abstract class RepoDefault<T> {
 	def void update(T t) {
 		try {
 			session.beginTransaction
-//			session.update(t)
 			session.merge(t)
 			session.getTransaction.commit
 		} catch (HibernateException e) {

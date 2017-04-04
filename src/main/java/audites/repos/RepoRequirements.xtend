@@ -3,6 +3,7 @@ package audites.repos
 import audites.domain.Requirement
 import org.hibernate.Criteria
 import org.hibernate.criterion.Restrictions
+import audites.domain.Revision
 
 class RepoRequirements extends RepoDefault<Requirement> {
 
@@ -25,4 +26,9 @@ class RepoRequirements extends RepoDefault<Requirement> {
 		}
 	}
 
+	def remove(Requirement req, Revision revision) {
+		revision.requirements.remove(req)
+		RepoRevisions.instance.update(revision)
+		super.remove(req)
+	}
 }

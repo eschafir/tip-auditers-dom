@@ -13,12 +13,12 @@ class MainApplicationAppModel {
 
 	new() {
 		userLoged = new User
-		image = null
+		image = "c:/Users/Esteban/Desktop/Captura.png"
 	}
 
 	new(User user) {
 		userLoged = user
-		image = null
+		image = "c:/Users/Esteban/Desktop/Captura.png"
 	}
 
 }
