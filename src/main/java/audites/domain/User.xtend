@@ -37,7 +37,7 @@ class User {
 	List<Role> roles = newArrayList()
 
 	@ManyToMany(fetch=FetchType.LAZY)
-	List<Revision> revisions = newArrayList()
+	Set<Revision> revisions = newHashSet()
 
 	new() {
 		name = ""
