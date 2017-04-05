@@ -42,7 +42,7 @@ public class User {
   private List<Role> roles = CollectionLiterals.<Role>newArrayList();
   
   @ManyToMany(fetch = FetchType.LAZY)
-  private Set<Revision> revisions = CollectionLiterals.<Revision>newHashSet();
+  private List<Revision> revisions = CollectionLiterals.<Revision>newArrayList();
   
   public User() {
     this.name = "";
@@ -64,7 +64,7 @@ public class User {
     }
   }
   
-  public Set<Revision> getRevisions() {
+  public List<Revision> getRevisions() {
     for (final Department d : this.departments) {
       Set<Revision> _revisions = d.getRevisions();
       for (final Revision r : _revisions) {
@@ -132,7 +132,7 @@ public class User {
     this.roles = roles;
   }
   
-  public void setRevisions(final Set<Revision> revisions) {
+  public void setRevisions(final List<Revision> revisions) {
     this.revisions = revisions;
   }
 }
