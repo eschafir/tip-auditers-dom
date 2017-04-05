@@ -2,7 +2,7 @@ package audites.domain
 
 import java.util.Calendar
 import java.util.Date
-import java.util.Set
+import java.util.List
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -42,7 +42,7 @@ class Revision {
 	Department responsable
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	Set<Requirement> requirements = newHashSet()
+	List<Requirement> requirements = newArrayList()
 
 	new() {
 		author = null

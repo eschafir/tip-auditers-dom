@@ -21,14 +21,12 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	Revision revision
 	Requirement selectedRequirement
 	Department selectedDepartment
-	String file
 
 	new() {
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
-		file = ""
 	}
 
 	new(User user) {
@@ -37,7 +35,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
-		file = ""
 	}
 
 	new(Requirement requirement, Revision revision) {
@@ -120,6 +117,12 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		if (selectedDepartment == null) {
 			throw new UserException("Ingresa un departamento.")
 		}
+
+		validateRequirements()
+	}
+
+	def validateRequirements() {
+		if(revision.requirements.size == 0) throw new UserException("Debe ingresar al menos un requerimiento.")
 	}
 
 }
