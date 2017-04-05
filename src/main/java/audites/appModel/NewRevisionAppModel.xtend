@@ -97,6 +97,16 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.update(revision)
 	}
 
+	def String getRequirementComments() {
+		this.selectedRequirement.comments
+	}
+
+	def void setRequirementComments(String s) {
+		selectedRequirement.comments = s
+		RepoRequirements.instance.update(selectedRequirement)
+		RepoRevisions.instance.update(revision)
+	}
+
 	def createRevison() {
 		revision.author = userLoged
 		revision.responsable = selectedDepartment

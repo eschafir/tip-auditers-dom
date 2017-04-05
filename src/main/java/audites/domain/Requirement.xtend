@@ -5,8 +5,8 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -24,19 +24,44 @@ class Requirement {
 	String descripcion
 
 	@Column
+	String comments
+
+	@Column
+	String evidence
+
+	@Column
 	Boolean isCompleted = false
 
-	/**
-	 * Agregar propiedad de adjunto
-	 */
 	new() {
 		name = ""
 		descripcion = ""
+		comments = ""
+		evidence = ""
 	}
 
 	new(String name, String description) {
 		this.name = name
 		this.descripcion = description
+		comments = ""
+		evidence = ""
+	}
+
+	def void setComments(String c) {
+		comments = c
+		ObservableUtils.firePropertyChanged(this, "comments")
+	}
+
+	def String getComments() {
+		comments
+	}
+
+	def void setEvidence(String path) {
+		evidence = path
+		ObservableUtils.firePropertyChanged(this, "evidence")
+	}
+
+	def String getEvidence() {
+		evidence
 	}
 
 	def void setIsCompleted(Boolean b) {
