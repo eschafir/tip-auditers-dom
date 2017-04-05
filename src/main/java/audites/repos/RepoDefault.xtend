@@ -13,11 +13,13 @@ import org.hibernate.HibernateException
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
+import audites.domain.Evidence
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
 		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Requirement).
-		addAnnotatedClass(Admin).addAnnotatedClass(Auditor).addAnnotatedClass(Audited).buildSessionFactory()
+		addAnnotatedClass(Evidence).addAnnotatedClass(Admin).addAnnotatedClass(Auditor).addAnnotatedClass(Audited).
+		buildSessionFactory()
 
 	def abstract Class<T> getEntityType()
 

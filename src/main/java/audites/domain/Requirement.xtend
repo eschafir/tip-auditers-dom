@@ -7,6 +7,10 @@ import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
+import javax.persistence.ManyToMany
+import javax.persistence.FetchType
+import javax.persistence.CascadeType
+import java.util.Set
 
 @Observable
 @Accessors
@@ -26,8 +30,8 @@ class Requirement {
 	@Column
 	String comments
 
-	@Column
-	String evidence
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	Set<Evidence> evidences = newHashSet()
 
 	@Column
 	Boolean isCompleted = false
@@ -36,14 +40,12 @@ class Requirement {
 		name = ""
 		descripcion = ""
 		comments = ""
-		evidence = ""
 	}
 
 	new(String name, String description) {
 		this.name = name
 		this.descripcion = description
 		comments = ""
-		evidence = ""
 	}
 
 	def void setComments(String c) {
@@ -53,15 +55,6 @@ class Requirement {
 
 	def String getComments() {
 		comments
-	}
-
-	def void setEvidence(String path) {
-		evidence = path
-		ObservableUtils.firePropertyChanged(this, "evidence")
-	}
-
-	def String getEvidence() {
-		evidence
 	}
 
 	def void setIsCompleted(Boolean b) {
@@ -75,6 +68,10 @@ class Requirement {
 		} else {
 			"Pendiente"
 		}
+	}
+
+	def void addEvidence(Evidence e) {
+		if(!evidences.contains(e)) evidences.add(e)
 	}
 
 }
