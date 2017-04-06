@@ -9,16 +9,13 @@ import org.uqbar.commons.utils.Observable
 class MainApplicationAppModel {
 
 	User userLoged
-	String image
 
 	new() {
 		userLoged = new User
-		image = "c:/Users/Esteban/Desktop/Captura.png"
 	}
 
 	new(User user) {
 		userLoged = user
-		image = "c:/Users/Esteban/Desktop/Captura.png"
 	}
 
 }

@@ -57,6 +57,15 @@ class Requirement {
 		comments
 	}
 
+	def void setEvidences(Set<Evidence> ev) {
+		evidences = ev
+		ObservableUtils.firePropertyChanged(this, "evidences")
+	}
+
+	def Set<Evidence> getEvidences() {
+		evidences
+	}
+
 	def void setIsCompleted(Boolean b) {
 		isCompleted = b
 		ObservableUtils.firePropertyChanged(this, "requirementStatus")

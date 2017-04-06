@@ -12,45 +12,57 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
+import audites.domain.Evidence
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
 class NewRevisionAppModel extends MainApplicationAppModel {
 
-	List<Department> departments
+	List<Department> departments = RepoDepartments.instance.allInstances
 	Revision revision
 	Requirement selectedRequirement
 	Department selectedDepartment
+	String selectedFile
 
 	new() {
-		departments = RepoDepartments.instance.allInstances
+		super()
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
+		selectedFile = ""
 	}
 
 	new(User user) {
 		super(user)
-		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
+		selectedFile = ""
 	}
 
 	new(Requirement requirement, Revision revision) {
+		super()
 		this.revision = revision
 		this.selectedRequirement = requirement
+		selectedDepartment = null
+		selectedFile = ""
 	}
 
 	new(Revision revision) {
+		super()
 		this.revision = revision
+		selectedRequirement = new Requirement
+		selectedDepartment = null
+		selectedFile = ""
 	}
 
 	new(Revision revision, User user) {
+		super(user)
 		this.revision = revision
-		this.userLoged = user
 		selectedRequirement = revision.requirements.head
 		selectedDepartment = null
+		selectedFile = ""
 	}
 
 	def List<Department> getDepartments() {
@@ -62,6 +74,22 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 			}
 		}
 		return list
+	}
+
+	def void setSelectedRequirement(Requirement req) {
+		selectedRequirement = req
+		ObservableUtils.firePropertyChanged(this, "selectedRequirement")
+	}
+
+	def Requirement getSelectedRequirement() {
+		selectedRequirement
+	}
+
+	def void setSelectedFile(String s) {
+		selectedFile = s
+		selectedRequirement.addEvidence(new Evidence(selectedFile))
+		RepoRequirements.instance.update(selectedRequirement)
+		RepoRevisions.instance.update(revision)
 	}
 
 	@Dependencies("selectedRequirement")
