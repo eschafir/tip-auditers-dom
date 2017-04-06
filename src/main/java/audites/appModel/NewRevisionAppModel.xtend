@@ -19,7 +19,7 @@ import org.uqbar.commons.model.ObservableUtils
 @Accessors
 class NewRevisionAppModel extends MainApplicationAppModel {
 
-	List<Department> departments = RepoDepartments.instance.allInstances
+	List<Department> departments
 	Revision revision
 	Requirement selectedRequirement
 	Department selectedDepartment
@@ -27,6 +27,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new() {
 		super()
+		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
@@ -35,6 +36,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(User user) {
 		super(user)
+		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
@@ -43,6 +45,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(Requirement requirement, Revision revision) {
 		super()
+		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		this.selectedRequirement = requirement
 		selectedDepartment = null
@@ -51,6 +54,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(Revision revision) {
 		super()
+		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		selectedRequirement = new Requirement
 		selectedDepartment = null
@@ -59,6 +63,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	new(Revision revision, User user) {
 		super(user)
+		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		selectedRequirement = revision.requirements.head
 		selectedDepartment = null
