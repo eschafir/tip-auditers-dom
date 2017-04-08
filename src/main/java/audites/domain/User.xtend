@@ -68,4 +68,8 @@ class User {
 		return revisions
 	}
 
+	def Boolean maximumResponsable(Department dep) {
+		dep.maxAuthority == this
+	}
+
 }

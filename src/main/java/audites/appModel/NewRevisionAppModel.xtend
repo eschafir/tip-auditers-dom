@@ -29,8 +29,8 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		super()
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
-		selectedRequirement = new Requirement
-		selectedDepartment = null
+		selectedRequirement = revision.requirements.head
+		selectedDepartment = RepoDepartments.instance.allInstances.head
 		selectedFile = ""
 	}
 
@@ -38,8 +38,8 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		super(user)
 		departments = RepoDepartments.instance.allInstances
 		revision = new Revision
-		selectedRequirement = new Requirement
-		selectedDepartment = null
+		selectedRequirement = revision.requirements.head
+		selectedDepartment = RepoDepartments.instance.allInstances.head
 		selectedFile = ""
 	}
 
@@ -48,7 +48,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		this.selectedRequirement = requirement
-		selectedDepartment = null
+		selectedDepartment = RepoDepartments.instance.allInstances.head
 		selectedFile = ""
 	}
 
@@ -57,7 +57,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		selectedRequirement = new Requirement
-		selectedDepartment = null
+		selectedDepartment = RepoDepartments.instance.allInstances.head
 		selectedFile = ""
 	}
 
@@ -66,7 +66,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		departments = RepoDepartments.instance.allInstances
 		this.revision = revision
 		selectedRequirement = revision.requirements.head
-		selectedDepartment = null
+		selectedDepartment = RepoDepartments.instance.allInstances.head
 		selectedFile = ""
 	}
 

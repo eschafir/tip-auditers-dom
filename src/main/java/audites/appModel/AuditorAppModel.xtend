@@ -18,14 +18,14 @@ class AuditorAppModel extends MainApplicationAppModel {
 
 	new() {
 		super()
-		departmentSelected = new Department
-		revisionSelected = new Revision
+		departmentSelected = userLoged.departments.head
+		revisionSelected = userLoged.revisions.head
 	}
 
 	new(User user) {
 		super(user)
-		departmentSelected = new Department
-		revisionSelected = new Revision
+		departmentSelected =  userLoged.departments.head
+		revisionSelected = userLoged.revisions.head
 	}
 
 	@Dependencies("revisionSelected")

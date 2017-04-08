@@ -1,6 +1,10 @@
 package audites.domain;
 
 import audites.domain.Revision;
+import audites.domain.User;
+import audites.repos.RepoUsers;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
@@ -32,9 +37,13 @@ public class Department {
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   private Set<Revision> revisions = CollectionLiterals.<Revision>newHashSet();
   
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private User maxAuthority;
+  
   public Department() {
     this.name = "";
     this.email = "";
+    this.maxAuthority = null;
   }
   
   public void addRevision(final Revision rev) {
@@ -43,6 +52,20 @@ public class Department {
     if (_not) {
       this.revisions.add(rev);
     }
+  }
+  
+  public List<User> obtainUsers() {
+    RepoUsers _instance = RepoUsers.getInstance();
+    final List<User> DBusers = _instance.allInstances();
+    ArrayList<User> users = CollectionLiterals.<User>newArrayList();
+    for (final User u : DBusers) {
+      Set<Department> _departments = u.getDepartments();
+      boolean _contains = _departments.contains(this);
+      if (_contains) {
+        users.add(u);
+      }
+    }
+    return users;
   }
   
   @Pure
@@ -79,5 +102,14 @@ public class Department {
   
   public void setRevisions(final Set<Revision> revisions) {
     this.revisions = revisions;
+  }
+  
+  @Pure
+  public User getMaxAuthority() {
+    return this.maxAuthority;
+  }
+  
+  public void setMaxAuthority(final User maxAuthority) {
+    this.maxAuthority = maxAuthority;
   }
 }

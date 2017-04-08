@@ -34,5 +34,14 @@ class UserTest {
 		assertEquals(user.revisions.size,2)
 		
 	}
+	
+	@Test
+	def void testIsMaximumResponsable(){
+		val user1 = new User("pepe","123","pepe@gmail.com")
+		val user2 = new User("lolo","123","lolo@gmail.com")
+		seginf.maxAuthority = user1
+		assertTrue(user1.maximumResponsable(seginf))
+		assertFalse(user2.maximumResponsable(seginf))
+	}
 
 }

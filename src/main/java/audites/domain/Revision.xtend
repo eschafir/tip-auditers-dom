@@ -45,12 +45,12 @@ class Revision {
 	List<Requirement> requirements = newArrayList()
 
 	new() {
-		author = null
+		author = new User
 		name = ""
 		description = ""
 		initDate = Calendar.instance.time
 		endDate = new Date
-		responsable = null
+		responsable = new Department
 	}
 
 	def addRequirement(Requirement r) {
