@@ -44,6 +44,9 @@ class Revision {
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	List<Requirement> requirements = newArrayList()
 
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	User attendant
+
 	new() {
 		author = new User
 		name = ""
@@ -51,6 +54,7 @@ class Revision {
 		initDate = Calendar.instance.time
 		endDate = new Date
 		responsable = new Department
+		attendant = responsable.maxAuthority
 	}
 
 	def addRequirement(Requirement r) {
@@ -74,5 +78,4 @@ class Revision {
 	def Boolean isCompleted() {
 		return (completedRequirements == requirements.size)
 	}
-
 }

@@ -143,6 +143,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	def createRevison() {
 		revision.author = userLoged
 		revision.responsable = selectedDepartment
+		revision.attendant = selectedDepartment.maxAuthority
 		userLoged.revisions.add(revision)
 		selectedDepartment.addRevision(revision)
 		RepoRevisions.instance.create(revision)
