@@ -24,12 +24,12 @@ class AuditorAppModel extends MainApplicationAppModel {
 
 	new(User user) {
 		super(user)
-		departmentSelected =  userLoged.departments.head
+		departmentSelected = userLoged.departments.head
 		revisionSelected = userLoged.revisions.head
 	}
 
 	@Dependencies("revisionSelected")
-	def boolean getRevisionIsSelected() {
-		revisionSelected.name != ""
+	def boolean getRevisionIsSelectedAuditor() {
+		revisionSelected != null
 	}
 }
