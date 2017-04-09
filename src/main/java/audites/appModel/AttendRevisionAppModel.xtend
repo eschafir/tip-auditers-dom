@@ -16,5 +16,9 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 	def changeRequirmentStatus() {
 		selectedRequirement.changeRequirmentStatus
 	}
+	
+	def verifyIfCompleted() {
+		if(revision.isCompleted) revision.attendant = revision.responsable.maxAuthority
+	}
 
 }
