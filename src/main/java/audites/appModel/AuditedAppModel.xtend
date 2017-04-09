@@ -30,6 +30,7 @@ class AuditedAppModel extends AuditorAppModel {
 		RepoRevisions.instance.update(revisionSelected)
 		ObservableUtils.firePropertyChanged(this, "selectedUser")
 		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
+		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
 
 	}
 
@@ -40,6 +41,11 @@ class AuditedAppModel extends AuditorAppModel {
 	@Dependencies("revisionSelected")
 	def boolean getRevisionIsSelectedAudited() {
 		revisionSelected != null && revisionSelected.attendant == userLoged
+	}
+
+	@Dependencies("revisionSelected")
+	def boolean getRevisionIsDerived() {
+		revisionSelected != null && revisionSelected.attendant != userLoged
 	}
 
 	def List<User> getObtainUsers() {
@@ -56,5 +62,4 @@ class AuditedAppModel extends AuditorAppModel {
 	def getMaximumResponsable() {
 		revisionSelected.responsable.maxAuthority
 	}
-
 }

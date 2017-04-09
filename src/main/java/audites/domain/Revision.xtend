@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
@@ -65,14 +66,19 @@ class Revision {
 
 	def int completedRequirements() {
 		var amount = 0
-		for (Requirement r : requirements) {
-			//
+		for (Requirement requirement : requirements) {
+			if(requirement.isCompleted) amount += 1
 		}
 		return amount
 	}
 
-	def float average() {
-		return ((completedRequirements * 100) / requirements.size)
+	def void setAverage(float avg) {
+		average = avg
+		ObservableUtils.firePropertyChanged(this, "average")
+	}
+
+	def float getAverage() {
+		((completedRequirements * 100) / requirements.size)
 	}
 
 	def Boolean isCompleted() {
