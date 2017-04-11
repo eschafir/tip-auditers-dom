@@ -12,8 +12,8 @@ class EmailSender {
 
 	def static void sendMail() {
 		// El correo gmail de envío
-		val correoEnvia = "auditers.tip@gmail.com"
-		val claveCorreo = "Auditers123"
+		val remitent = "auditers.tip@gmail.com"
+		val password = "Auditers123"
 
 		// La configuración para enviar correo
 		var properties = new Properties()
@@ -21,8 +21,8 @@ class EmailSender {
 		properties.put("mail.smtp.starttls.enable", "true")
 		properties.put("mail.smtp.port", "587")
 		properties.put("mail.smtp.auth", "true")
-		properties.put("mail.user", correoEnvia)
-		properties.put("mail.password", claveCorreo)
+		properties.put("mail.user", remitent)
+		properties.put("mail.password", password)
 
 		// Obtener la sesion
 		val session = Session.getInstance(properties, null)
@@ -32,7 +32,7 @@ class EmailSender {
 			var mimeMessage = new MimeMessage(session)
 
 			// Agregar quien envía el correo
-			mimeMessage.setFrom(new InternetAddress(correoEnvia, "AuditERS"))
+			mimeMessage.setFrom(new InternetAddress(remitent, "AuditERS"))
 
 			// Los destinatarios
 			var internetAddresses = {
@@ -58,7 +58,7 @@ class EmailSender {
 
 			// Enviar el mensaje
 			val transport = session.getTransport("smtp");
-			transport.connect(correoEnvia, claveCorreo);
+			transport.connect(remitent, password);
 			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
 			transport.close();
 
@@ -67,9 +67,4 @@ class EmailSender {
 		}
 		System.out.println("Correo enviado");
 	}
-	
-	def static void main(String[] args) {
-		EmailSender.sendMail
-	}
-
 }
