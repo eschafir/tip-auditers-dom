@@ -7,15 +7,18 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
+import audites.domain.User
 
-class EmailSender {
+@Accessors
+@Observable
+abstract class EmailSender {
 
-	def static void sendMail() {
-		// El correo gmail de envío
+	def void sendEmail(User author, User reciever) {
 		val remitent = "auditers.tip@gmail.com"
 		val password = "Auditers123"
 
-		// La configuración para enviar correo
 		var properties = new Properties()
 		properties.put("mail.smtp.host", "smtp.gmail.com")
 		properties.put("mail.smtp.starttls.enable", "true")
@@ -24,47 +27,43 @@ class EmailSender {
 		properties.put("mail.user", remitent)
 		properties.put("mail.password", password)
 
-		// Obtener la sesion
 		val session = Session.getInstance(properties, null)
 
 		try {
-			// Crear el cuerpo del mensaje
 			var mimeMessage = new MimeMessage(session)
 
-			// Agregar quien envía el correo
 			mimeMessage.setFrom(new InternetAddress(remitent, "AuditERS"))
 
-			// Los destinatarios
 			var internetAddresses = {
-				new InternetAddress("esteban.schafir@gmail.com")
+				new InternetAddress(reciever.email)
 			}
 
-			// Agregar los destinatarios al mensaje
 			mimeMessage.setRecipient(Message.RecipientType.TO, internetAddresses)
 
-			// Agregar el asunto al correo
-			mimeMessage.setSubject("Prueba de correo AuditERS")
+			mimeMessage.setSubject(mailSubject())
 
-			// Creo la parte del mensaje
-			var mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.setText("Prueba de correo AuditERS");
+			var mimeBodyPart = new MimeBodyPart()
 
-			// Crear el multipart para agregar la parte del mensaje anterior
-			var multipart = new MimeMultipart();
-			multipart.addBodyPart(mimeBodyPart);
+			mimeBodyPart.setText(mailBody(author.name))
 
-			// Agregar el multipart al cuerpo del mensaje
-			mimeMessage.setContent(multipart);
+			var multipart = new MimeMultipart()
+			multipart.addBodyPart(mimeBodyPart)
 
-			// Enviar el mensaje
-			val transport = session.getTransport("smtp");
-			transport.connect(remitent, password);
-			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
-			transport.close();
+			mimeMessage.setContent(multipart)
+
+			val transport = session.getTransport("smtp")
+			transport.connect(remitent, password)
+			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients())
+			transport.close()
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			ex.printStackTrace()
 		}
-		System.out.println("Correo enviado");
+		System.out.println("Correo enviado")
 	}
+
+	def abstract String mailSubject()
+
+	def abstract String mailBody(String author)
+
 }

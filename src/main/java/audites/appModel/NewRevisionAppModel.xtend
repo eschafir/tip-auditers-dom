@@ -14,6 +14,7 @@ import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
 import audites.domain.Evidence
 import org.uqbar.commons.model.ObservableUtils
+import audites.logger.Logger
 
 @Observable
 @Accessors
@@ -148,9 +149,11 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		selectedDepartment.addRevision(revision)
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
+		Logger.write(userLoged.name + " ha generado la revision: " + revision.name)
 	}
 
 	def deleteRequirement() {
+		Logger.write(userLoged.name + " ha eliminado el requerimiento: " + selectedRequirement.name)
 		RepoRequirements.instance.remove(selectedRequirement, revision)
 	}
 

@@ -24,7 +24,7 @@ class Revision {
 	@GeneratedValue
 	private Long id
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	User author
 
 	@Column
