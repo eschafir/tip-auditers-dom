@@ -24,16 +24,24 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 		revision.isCompleted
 	}
 
+	def revisionMaxAuthority() {
+		revision.responsable.maxAuthority
+	}
+
 	def deriveToMaxAuthority() {
-		revision.attendant = revision.responsable.maxAuthority
+		revision.attendant = revisionMaxAuthority
 		mailer.sendEmail()
 	}
 
 	override getMailer() {
 		if (revisionCompleted)
-			new CompletedRevisionMail(revision.responsable.maxAuthority, revision.author, revision)
+			new CompletedRevisionMail(revisionMaxAuthority, revision.author, revision)
 		else
 			new ChangedStatusRequirementMail(userLoged, revision.author, revision, selectedRequirement)
+	}
+
+	def Boolean revisionCompletedAndUserIsNotMaxAuthority() {
+		revisionCompleted && userLoged != revisionMaxAuthority
 	}
 
 }

@@ -1,12 +1,13 @@
 package audites.appModel
 
 import audites.domain.User
+import audites.logger.LoginLog
 import audites.repos.RepoUsers
+import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
-import org.apache.commons.codec.digest.DigestUtils
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -53,4 +54,10 @@ class LoginAppModel {
 	def boolean getPasswordIngresed() {
 		passwordSubmited != ""
 	}
+
+	def writeLog(User user) {
+		val logger = new LoginLog(user)
+		logger.write
+	}
+
 }

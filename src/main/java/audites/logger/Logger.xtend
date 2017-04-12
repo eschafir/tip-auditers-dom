@@ -1,13 +1,12 @@
 package audites.logger
 
+import audites.domain.User
 import java.io.FileWriter
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
-import audites.domain.Revision
 import org.eclipse.xtend.lib.annotations.Accessors
-import audites.domain.User
 
 @Accessors
 abstract class Logger {
@@ -44,22 +43,4 @@ abstract class Logger {
 	}
 }
 
-class NewRevisionLog extends Logger {
-	Revision revision
 
-	new() {
-		super()
-		revision = new Revision
-	}
-
-	new(User author, Revision revision) {
-		super(author)
-		this.revision = revision
-	}
-
-	override loggerType() {
-		"| TIPO: REVISION | EVENTO: CREACION | USUARIO: " + author.name.toUpperCase +
-			" | Se ha generado una nueva revision: " + revision.name + "."
-	}
-
-}

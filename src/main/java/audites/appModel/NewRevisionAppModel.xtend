@@ -83,15 +83,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		return list
 	}
 
-	def void setSelectedRequirement(Requirement req) {
-		selectedRequirement = req
-		ObservableUtils.firePropertyChanged(this, "selectedRequirement")
-	}
-
-	def Requirement getSelectedRequirement() {
-		selectedRequirement
-	}
-
 	def void setSelectedFile(String s) {
 		selectedFile = s
 		selectedRequirement.addEvidence(new Evidence(selectedFile))
@@ -109,12 +100,16 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	@Dependencies("selectedRequirement")
 	def boolean getHasRequirements() {
-		/**
-		 * Con esta linea se grisan las 2 opciones de Editar y Eliminar, pero al eliminar un requerimiento
-		 * la aplicacion da un RuntimeException
-		 */
-		// selectedRequirement.name != ""
 		selectedRequirement != null
+	}
+
+	def void setSelectedRequirement(Requirement req) {
+		selectedRequirement = req
+		ObservableUtils.firePropertyChanged(this, "selectedRequirement")
+	}
+
+	def Requirement getSelectedRequirement() {
+		selectedRequirement
 	}
 
 	@Dependencies("selectedDepartment")
@@ -158,13 +153,11 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		selectedDepartment.addRevision(revision)
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
-		logger.write()
-		mailer.sendEmail()
 	}
 
-	def deleteRequirement() {
-		//Logger.write(userLoged.name + " ha eliminado el requerimiento: " + selectedRequirement.name)
-		RepoRequirements.instance.remove(selectedRequirement, revision)
+	def logAndNotify() {
+		logger.write()
+		mailer.sendEmail()
 	}
 
 	def validateRevision() {
@@ -176,6 +169,10 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		}
 
 		validateRequirements()
+	}
+
+	def deleteRequirement() {
+		RepoRequirements.instance.remove(selectedRequirement, revision)
 	}
 
 	def validateRequirements() {
