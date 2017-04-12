@@ -1,6 +1,7 @@
 package audites.appModel
 
 import audites.domain.User
+import audites.emailSender.EmailSender
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -9,13 +10,16 @@ import org.uqbar.commons.utils.Observable
 class MainApplicationAppModel {
 
 	User userLoged
+	EmailSender mailer
 
 	new() {
 		userLoged = new User
+		mailer = null
 	}
 
 	new(User user) {
 		userLoged = user
+		mailer = null
 	}
 
 }

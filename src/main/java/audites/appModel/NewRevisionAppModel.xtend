@@ -1,20 +1,21 @@
 package audites.appModel
 
 import audites.domain.Department
+import audites.domain.Evidence
 import audites.domain.Requirement
 import audites.domain.Revision
 import audites.domain.User
+import audites.logger.Logger
 import audites.repos.RepoDepartments
 import audites.repos.RepoRequirements
 import audites.repos.RepoRevisions
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
-import audites.domain.Evidence
-import org.uqbar.commons.model.ObservableUtils
-import audites.logger.Logger
+import audites.emailSender.NewRevisionMail
 
 @Observable
 @Accessors
@@ -25,6 +26,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	Requirement selectedRequirement
 	Department selectedDepartment
 	String selectedFile
+	
 
 	new() {
 		super()
@@ -97,6 +99,10 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRequirements.instance.update(selectedRequirement)
 		RepoRevisions.instance.update(revision)
 	}
+	
+	override getMailer() {
+		new NewRevisionMail(revision)
+	}
 
 	@Dependencies("selectedRequirement")
 	def boolean getHasRequirements() {
@@ -150,6 +156,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
 		Logger.write(userLoged.name + " ha generado la revision: " + revision.name)
+		mailer.sendEmail(userLoged, selectedDepartment.maxAuthority)
 	}
 
 	def deleteRequirement() {

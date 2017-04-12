@@ -4,6 +4,7 @@ import audites.domain.Revision
 import audites.domain.User
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import audites.emailSender.CompletedRevisionMail
 
 @Observable
 @Accessors
@@ -23,6 +24,11 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def deriveToMaxAuthority() {
 		revision.attendant = revision.responsable.maxAuthority
+		mailer.sendEmail(userLoged, revision.author)
+	}
+
+	override getMailer() {
+		new CompletedRevisionMail(revision)
 	}
 
 }

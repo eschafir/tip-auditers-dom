@@ -19,7 +19,7 @@ class UserTest {
 
 	@Before
 	def void setUp() {
-		user = new User("Esteban", "123", "eschafir")
+		user = new User("Esteban", "eschafir", "123", "eschafir")
 		revision2 = new Revision
 		seginf = new Department
 		internalAudit = new Department
@@ -31,14 +31,14 @@ class UserTest {
 		internalAudit.addRevision(revision2)
 		user.addDepartment(seginf)
 		user.addDepartment(internalAudit)
-		assertEquals(user.revisions.size,2)
-		
+		assertEquals(user.revisions.size, 2)
+
 	}
-	
+
 	@Test
-	def void testIsMaximumResponsable(){
-		val user1 = new User("pepe","123","pepe@gmail.com")
-		val user2 = new User("lolo","123","lolo@gmail.com")
+	def void testIsMaximumResponsable() {
+		val user1 = new User("pepe", "pepe", "123", "pepe@gmail.com")
+		val user2 = new User("lolo", "lolo", "123", "lolo@gmail.com")
 		seginf.maxAuthority = user1
 		assertTrue(user1.maximumResponsable(seginf))
 		assertFalse(user2.maximumResponsable(seginf))

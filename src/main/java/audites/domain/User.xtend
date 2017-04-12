@@ -25,6 +25,9 @@ class User {
 	String name
 
 	@Column
+	String username
+
+	@Column
 	String password
 
 	@Column
@@ -41,12 +44,14 @@ class User {
 
 	new() {
 		name = ""
+		username = ""
 		password = ""
 		email = ""
 	}
 
-	new(String n, String p, String m) {
+	new(String n, String u, String p, String m) {
 		name = n
+		username = u
 		password = p
 		email = m
 	}

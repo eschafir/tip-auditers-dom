@@ -20,24 +20,23 @@ class LoginAppModel {
 	}
 
 	def validateUser() {
-		validateEmptyFields(userLoged.email, passwordSubmited)
-		validateMail(userLoged.email)
+		validateEmptyFields(userLoged.username, passwordSubmited)
+		validateUsername(userLoged.username)
 		validatePassword(passwordSubmited)
 	}
 
-	def validateEmptyFields(String mailSubmited, String submitedPass) {
-		if (mailSubmited == null) {
+	def validateEmptyFields(String usernameSubmited, String submitedPass) {
+		if (usernameSubmited == null) {
 			throw new UserException("Ingrese el usuario.")
 		} else if (submitedPass == null) {
 			throw new UserException("Ingrese la contraseña.")
 		}
 	}
 
-	def validateMail(String string) {
-		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.email == string]) {
+	def validateUsername(String string) {
+		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.username == string]) {
 			throw new UserException("Usuario incorrecto o inexistente")
 		}
-
 	}
 
 	def validatePassword(String string) {
@@ -48,12 +47,10 @@ class LoginAppModel {
 
 	def obtainUser() {
 		return RepoUsers.instance.searchByExample(userLoged).head
-
 	}
 
 	@Dependencies("passwordSubmited")
 	def boolean getPasswordIngresed() {
 		passwordSubmited != ""
 	}
-
 }
