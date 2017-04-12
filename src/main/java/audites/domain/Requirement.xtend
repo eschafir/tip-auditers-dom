@@ -82,8 +82,8 @@ class Requirement {
 	def void addEvidence(Evidence e) {
 		if(!evidences.contains(e)) evidences.add(e)
 	}
-	
-	def void changeRequirmentStatus(){
+
+	def void changeRequirmentStatus() {
 		isCompleted = !isCompleted
 		ObservableUtils.firePropertyChanged(this, "requirementStatus")
 	}

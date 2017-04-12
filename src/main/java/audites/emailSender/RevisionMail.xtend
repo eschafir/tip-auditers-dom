@@ -25,11 +25,11 @@ abstract class RevisionMail extends EmailSender {
 		"Revision -> " + revisionSubjectByType() + " -> " + revision.name
 	}
 
-	def abstract String revisionSubjectByType()
-
 	override mailBody(String author) {
 		revisionBodyByType() + " Usuario que realizó la acción: " + author + "."
 	}
+
+	def abstract String revisionSubjectByType()
 
 	def abstract String revisionBodyByType()
 
@@ -72,6 +72,27 @@ class CompletedRevisionMail extends RevisionMail {
 
 	override revisionBodyByType() {
 		"Se ha completado la revision " + revision.name + ". Ingrese a AuditERS para verificar los requerimientos."
+	}
+
+}
+
+class DerivedRevisionMail extends RevisionMail {
+
+	new() {
+		super()
+	}
+
+	new(User a, User r, Revision rev) {
+		super(a, r, rev)
+	}
+
+	override revisionSubjectByType() {
+		"Derivada"
+	}
+
+	override revisionBodyByType() {
+		"Se te ha asignado una nueva revision. Ingrese a AuditERS para atenderla. Nombre de la revision: " +
+			revision.name + "." + "\r \n"
 	}
 
 }

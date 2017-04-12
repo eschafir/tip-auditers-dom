@@ -7,6 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
+import audites.emailSender.DerivedRevisionMail
 
 @Observable
 @Accessors
@@ -31,11 +32,16 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "selectedUser")
 		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
+		mailer.sendEmail
 
 	}
 
 	def User getSelectedUser() {
 		selectedUser
+	}
+
+	override getMailer() {
+		new DerivedRevisionMail(userLoged, selectedUser, revisionSelected)
 	}
 
 	@Dependencies("revisionSelected")
@@ -62,4 +68,5 @@ class AuditedAppModel extends AuditorAppModel {
 	def getMaximumResponsable() {
 		revisionSelected.responsable.maxAuthority
 	}
+
 }

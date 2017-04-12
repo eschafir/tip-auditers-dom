@@ -5,6 +5,7 @@ import audites.domain.User
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import audites.emailSender.CompletedRevisionMail
+import audites.emailSender.ChangedStatusRequirementMail
 
 @Observable
 @Accessors
@@ -16,6 +17,7 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def changeRequirmentStatus() {
 		selectedRequirement.changeRequirmentStatus
+		mailer.sendEmail
 	}
 
 	def revisionCompleted() {
@@ -28,7 +30,10 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 	}
 
 	override getMailer() {
-		new CompletedRevisionMail(revision.responsable.maxAuthority, revision.author, revision)
+		if (revisionCompleted)
+			new CompletedRevisionMail(revision.responsable.maxAuthority, revision.author, revision)
+		else
+			new ChangedStatusRequirementMail(userLoged, revision.author, revision, selectedRequirement)
 	}
 
 }

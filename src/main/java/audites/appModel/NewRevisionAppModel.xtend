@@ -5,7 +5,8 @@ import audites.domain.Evidence
 import audites.domain.Requirement
 import audites.domain.Revision
 import audites.domain.User
-import audites.logger.Logger
+import audites.emailSender.NewRevisionMail
+import audites.logger.NewRevisionLog
 import audites.repos.RepoDepartments
 import audites.repos.RepoRequirements
 import audites.repos.RepoRevisions
@@ -15,7 +16,6 @@ import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
-import audites.emailSender.NewRevisionMail
 
 @Observable
 @Accessors
@@ -103,6 +103,10 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		new NewRevisionMail(userLoged, revision.responsable.maxAuthority, revision)
 	}
 
+	override getLogger() {
+		new NewRevisionLog(userLoged, revision)
+	}
+
 	@Dependencies("selectedRequirement")
 	def boolean getHasRequirements() {
 		/**
@@ -154,12 +158,12 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		selectedDepartment.addRevision(revision)
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
-		Logger.write(userLoged.name + " ha generado la revision: " + revision.name)
+		logger.write()
 		mailer.sendEmail()
 	}
 
 	def deleteRequirement() {
-		Logger.write(userLoged.name + " ha eliminado el requerimiento: " + selectedRequirement.name)
+		//Logger.write(userLoged.name + " ha eliminado el requerimiento: " + selectedRequirement.name)
 		RepoRequirements.instance.remove(selectedRequirement, revision)
 	}
 
