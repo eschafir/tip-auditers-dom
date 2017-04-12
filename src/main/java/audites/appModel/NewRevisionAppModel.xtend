@@ -26,7 +26,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	Requirement selectedRequirement
 	Department selectedDepartment
 	String selectedFile
-	
 
 	new() {
 		super()
@@ -99,9 +98,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRequirements.instance.update(selectedRequirement)
 		RepoRevisions.instance.update(revision)
 	}
-	
+
 	override getMailer() {
-		new NewRevisionMail(revision)
+		new NewRevisionMail(userLoged, revision.responsable.maxAuthority, revision)
 	}
 
 	@Dependencies("selectedRequirement")
@@ -156,7 +155,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.create(revision)
 		RepoDepartments.instance.update(selectedDepartment)
 		Logger.write(userLoged.name + " ha generado la revision: " + revision.name)
-		mailer.sendEmail(userLoged, selectedDepartment.maxAuthority)
+		mailer.sendEmail()
 	}
 
 	def deleteRequirement() {

@@ -24,11 +24,11 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def deriveToMaxAuthority() {
 		revision.attendant = revision.responsable.maxAuthority
-		mailer.sendEmail(userLoged, revision.author)
+		mailer.sendEmail()
 	}
 
 	override getMailer() {
-		new CompletedRevisionMail(revision)
+		new CompletedRevisionMail(revision.responsable.maxAuthority, revision.author, revision)
 	}
 
 }

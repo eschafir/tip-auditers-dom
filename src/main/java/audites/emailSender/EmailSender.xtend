@@ -15,7 +15,20 @@ import audites.domain.User
 @Observable
 abstract class EmailSender {
 
-	def void sendEmail(User author, User reciever) {
+	User author
+	User reciever
+
+	new() {
+		author = new User
+		reciever = new User
+	}
+
+	new(User a, User r) {
+		author = a
+		reciever = r
+	}
+
+	def void sendEmail() {
 		val remitent = "auditers.tip@gmail.com"
 		val password = "Auditers123"
 

@@ -3,6 +3,7 @@ package audites.emailSender
 import audites.domain.Revision
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import audites.domain.User
 
 @Accessors
 @Observable
@@ -11,10 +12,12 @@ abstract class RevisionMail extends EmailSender {
 	Revision revision
 
 	new() {
+		super()
 		revision = new Revision
 	}
 
-	new(Revision rev) {
+	new(User a, User r, Revision rev) {
+		super(a, r)
 		revision = rev
 	}
 
@@ -38,8 +41,8 @@ class NewRevisionMail extends RevisionMail {
 		super()
 	}
 
-	new(Revision rev) {
-		super(rev)
+	new(User a, User r, Revision rev) {
+		super(a, r, rev)
 	}
 
 	override revisionSubjectByType() {
@@ -59,8 +62,8 @@ class CompletedRevisionMail extends RevisionMail {
 		super()
 	}
 
-	new(Revision rev) {
-		super(rev)
+	new(User a, User r, Revision rev) {
+		super(a, r, rev)
 	}
 
 	override revisionSubjectByType() {
