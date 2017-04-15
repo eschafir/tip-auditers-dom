@@ -3,7 +3,11 @@ package audites.logger
 import audites.logger.Logger
 import audites.domain.Revision
 import audites.domain.User
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
+@Accessors
+@Observable
 abstract class RevisionLog extends Logger {
 	Revision revision
 
@@ -50,12 +54,41 @@ class NewRevisionLog extends RevisionLog {
 
 class CompletedRevisionLog extends RevisionLog {
 
+	new() {
+		super()
+	}
+
+	new(User author, Revision revision) {
+		super(author, revision)
+	}
+
 	override revisionEventType() {
 		"COMPLETADO"
 	}
 
 	override revisionEventDescription() {
 		"Se han completado todos los requerimientos de la revision."
+	}
+}
+
+@Accessors
+@Observable
+class DerivedRevisionLog extends RevisionLog {
+
+	new() {
+		super()
+	}
+
+	new(User author, Revision revision) {
+		super(author, revision)
+	}
+
+	override revisionEventType() {
+		"DERIVADO"
+	}
+
+	override revisionEventDescription() {
+		author.name + " ha derivado la revision " + revision.name + " al usuario " + revision.attendant.name
 	}
 
 }

@@ -1,13 +1,14 @@
 package audites.appModel
 
 import audites.domain.User
+import audites.emailSender.DerivedRevisionMail
+import audites.logger.DerivedRevisionLog
 import audites.repos.RepoRevisions
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
-import audites.emailSender.DerivedRevisionMail
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -32,8 +33,8 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "selectedUser")
 		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
-		mailer.sendEmail
-
+		// mailer.sendEmail
+		logger.write
 	}
 
 	def User getSelectedUser() {
@@ -42,6 +43,10 @@ class AuditedAppModel extends AuditorAppModel {
 
 	override getMailer() {
 		new DerivedRevisionMail(userLoged, selectedUser, revisionSelected)
+	}
+
+	override getLogger() {
+		new DerivedRevisionLog(userLoged, revisionSelected)
 	}
 
 	@Dependencies("revisionSelected")

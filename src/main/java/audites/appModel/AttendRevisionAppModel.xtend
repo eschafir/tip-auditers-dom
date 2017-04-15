@@ -2,10 +2,13 @@ package audites.appModel
 
 import audites.domain.Revision
 import audites.domain.User
+import audites.emailSender.ChangedStatusRequirementMail
+import audites.emailSender.CompletedRevisionMail
+import audites.logger.ChangedStatusRequirementLog
+import audites.logger.CompletedRevisionLog
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import audites.emailSender.CompletedRevisionMail
-import audites.emailSender.ChangedStatusRequirementMail
+import audites.logger.DerivedRevisionLog
 
 @Observable
 @Accessors
@@ -17,7 +20,8 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def changeRequirmentStatus() {
 		selectedRequirement.changeRequirmentStatus
-		mailer.sendEmail
+		// mailer.sendEmail
+		logger.write
 	}
 
 	def revisionCompleted() {
@@ -30,18 +34,25 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def deriveToMaxAuthority() {
 		revision.attendant = revisionMaxAuthority
-		mailer.sendEmail()
+		val log = new DerivedRevisionLog(userLoged, revision)
+		log.write
 	}
 
 	override getMailer() {
-		if (revisionCompleted)
+		if (revisionCompleted) {
 			new CompletedRevisionMail(revisionMaxAuthority, revision.author, revision)
-		else
-			new ChangedStatusRequirementMail(userLoged, revision.author, revision, selectedRequirement)
+		} else
+			new ChangedStatusRequirementMail(userLoged, revisionMaxAuthority, revision, selectedRequirement)
+	}
+
+	override getLogger() {
+		if (revisionCompleted) {
+			new CompletedRevisionLog(userLoged, revision)
+		} else
+			new ChangedStatusRequirementLog(userLoged, selectedRequirement, revision)
 	}
 
 	def Boolean revisionCompletedAndUserIsNotMaxAuthority() {
 		revisionCompleted && userLoged != revisionMaxAuthority
 	}
-
 }
