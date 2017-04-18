@@ -29,7 +29,11 @@ class AuditorAppModel extends MainApplicationAppModel {
 	}
 
 	@Dependencies("revisionSelected")
-	def boolean getRevisionIsSelectedAuditor() {
+	def boolean getRevisionIsNotFinished() {
+		revisionSelected != null && !revisionSelected.isCompleted
+	}
+	
+	def boolean getRevisionIsSelectedAuditor(){
 		revisionSelected != null
 	}
 }
