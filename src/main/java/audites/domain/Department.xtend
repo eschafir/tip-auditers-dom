@@ -29,7 +29,8 @@ class Department {
 	@Column(length=100)
 	String email
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+//	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@ManyToMany(fetch=FetchType.LAZY)
 	Set<Revision> revisions = newHashSet()
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

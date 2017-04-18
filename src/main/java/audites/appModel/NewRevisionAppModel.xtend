@@ -100,7 +100,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	@Dependencies("selectedRequirement")
 	def boolean getHasRequirements() {
-		selectedRequirement != null
+		selectedRequirement != null && !selectedRequirement.isCompleted
 	}
 
 	def void setSelectedRequirement(Requirement req) {
