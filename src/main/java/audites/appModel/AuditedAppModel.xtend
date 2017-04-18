@@ -59,6 +59,17 @@ class AuditedAppModel extends AuditorAppModel {
 		revisionSelected != null && revisionSelected.attendant != userLoged
 	}
 
+	@Dependencies("revisionSelected")
+	def Boolean getRevisionFinished() {
+		revisionSelected != null && revisionSelected.isCompleted &&
+			revisionSelected.attendant == revisionSelected.responsable.maxAuthority
+	}
+
+	@Dependencies("revisionSelected")
+	def boolean getIsAsignedToAuthor() {
+		!revisionSelected.isDerivedToAuthor
+	}
+
 	def List<User> getObtainUsers() {
 		var result = newArrayList()
 		val users = revisionSelected.responsable.obtainUsers
@@ -72,6 +83,15 @@ class AuditedAppModel extends AuditorAppModel {
 
 	def getMaximumResponsable() {
 		revisionSelected.responsable.maxAuthority
+	}
+
+	def deriveToAuthor() {
+		revisionSelected.attendant = revisionSelected.author
+		ObservableUtils.firePropertyChanged(this, "isAsignedToAuthor")
+		ObservableUtils.firePropertyChanged(this, "revisionFinished")
+		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
+		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
+		logger.write
 	}
 
 }

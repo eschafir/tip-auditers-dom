@@ -81,7 +81,21 @@ class Revision {
 		((completedRequirements * 100) / requirements.size)
 	}
 
+	def void setAttendant(User u) {
+		attendant = u
+		ObservableUtils.firePropertyChanged(this, "isDerivedToAuthor")
+	}
+
+	def User getAttendant() {
+		attendant
+	}
+
 	def Boolean isCompleted() {
 		return (completedRequirements == requirements.size)
 	}
+
+	def Boolean getIsDerivedToAuthor() {
+		attendant == author
+	}
+
 }
