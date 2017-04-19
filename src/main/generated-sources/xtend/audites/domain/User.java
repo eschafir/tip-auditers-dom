@@ -70,6 +70,14 @@ public class User {
     }
   }
   
+  public void addRevision(final Revision rev) {
+    boolean _contains = this.revisions.contains(rev);
+    boolean _not = (!_contains);
+    if (_not) {
+      this.revisions.add(rev);
+    }
+  }
+  
   public Set<Revision> getRevisions() {
     for (final Department d : this.departments) {
       Set<Revision> _revisions = d.getRevisions();

@@ -39,8 +39,7 @@ class Revision {
 	@Column
 	Date endDate
 
-//	@ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.LAZY)
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	Department responsable
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

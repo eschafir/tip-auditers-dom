@@ -62,6 +62,10 @@ class User {
 		}
 	}
 
+	def void addRevision(Revision rev) {
+		if(!revisions.contains(rev)) revisions.add(rev)
+	}
+
 	def getRevisions() {
 		for (Department d : departments) {
 			for (Revision r : d.revisions) {
