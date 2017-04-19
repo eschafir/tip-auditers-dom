@@ -9,13 +9,26 @@ import audites.logger.CompletedRevisionLog
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import audites.logger.DerivedRevisionLog
+import audites.repos.RepoRequirements
+import audites.repos.RepoRevisions
+import audites.domain.Evidence
 
 @Observable
 @Accessors
 class AttendRevisionAppModel extends NewRevisionAppModel {
 
+	String selectedFile
+
 	new(Revision revision, User user) {
 		super(revision, user)
+		selectedFile = ""
+	}
+
+	def void setSelectedFile(String s) {
+		selectedFile = s
+		selectedRequirement.addEvidence(new Evidence(selectedFile))
+		RepoRequirements.instance.update(selectedRequirement)
+		RepoRevisions.instance.update(revision)
 	}
 
 	def changeRequirmentStatus() {

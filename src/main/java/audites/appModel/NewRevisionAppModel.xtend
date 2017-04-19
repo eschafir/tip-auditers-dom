@@ -1,7 +1,6 @@
 package audites.appModel
 
 import audites.domain.Department
-import audites.domain.Evidence
 import audites.domain.Requirement
 import audites.domain.Revision
 import audites.domain.User
@@ -25,7 +24,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	Revision revision
 	Requirement selectedRequirement
 	Department selectedDepartment
-	String selectedFile
 
 	new() {
 		super()
@@ -33,7 +31,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = revision.requirements.head
 		selectedDepartment = RepoDepartments.instance.allInstances.head
-		selectedFile = ""
 	}
 
 	new(User user) {
@@ -42,7 +39,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		revision = new Revision
 		selectedRequirement = revision.requirements.head
 		selectedDepartment = RepoDepartments.instance.allInstances.head
-		selectedFile = ""
 	}
 
 	new(Requirement requirement, Revision revision) {
@@ -51,7 +47,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		this.revision = revision
 		this.selectedRequirement = requirement
 		selectedDepartment = RepoDepartments.instance.allInstances.head
-		selectedFile = ""
 	}
 
 	new(Revision revision) {
@@ -60,7 +55,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		this.revision = revision
 		selectedRequirement = new Requirement
 		selectedDepartment = RepoDepartments.instance.allInstances.head
-		selectedFile = ""
 	}
 
 	new(Revision revision, User user) {
@@ -69,7 +63,6 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		this.revision = revision
 		selectedRequirement = revision.requirements.head
 		selectedDepartment = RepoDepartments.instance.allInstances.head
-		selectedFile = ""
 	}
 
 	def List<Department> getDepartments() {
@@ -83,11 +76,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		return list
 	}
 
-	def void setSelectedFile(String s) {
-		selectedFile = s
-		selectedRequirement.addEvidence(new Evidence(selectedFile))
-		RepoRequirements.instance.update(selectedRequirement)
-		RepoRevisions.instance.update(revision)
+	def void setSelectedDepartment(Department dep) {
+		selectedDepartment = dep
+		revision.responsable = dep
 	}
 
 	override getMailer() {
@@ -157,7 +148,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	def logAndNotify() {
 		logger.write()
-		//mailer.sendEmail()
+	// mailer.sendEmail()
 	}
 
 	def validateRevision() {
