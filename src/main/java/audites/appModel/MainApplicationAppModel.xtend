@@ -31,5 +31,4 @@ class MainApplicationAppModel {
 		logger = new LogoutLog(user)
 		logger.write
 	}
-
 }

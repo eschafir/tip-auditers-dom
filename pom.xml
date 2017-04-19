@@ -17,6 +17,15 @@
 		<version>3.6.1</version>
 	</parent>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+	</build>
+
+
 	<!-- Dependencias de Hibernate y de conexión a la base de datos -->
 	<dependencies>
 		<dependency>

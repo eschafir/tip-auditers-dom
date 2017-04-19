@@ -60,4 +60,8 @@ class LoginAppModel {
 		logger.write
 	}
 
+	def getPathImagen() {
+		"auditers.png"
+	}
+
 }
