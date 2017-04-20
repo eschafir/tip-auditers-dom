@@ -79,7 +79,9 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	def void setSelectedDepartment(Department dep) {
 		selectedDepartment.removeRevision(revision)
 		selectedDepartment = dep
-		revision.responsable = dep
+		selectedDepartment.addRevision(revision)
+		revision.responsable = selectedDepartment
+		revision.attendant = selectedDepartment.maxAuthority
 	}
 
 	override getMailer() {
