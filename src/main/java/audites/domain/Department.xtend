@@ -46,6 +46,12 @@ class Department {
 			revisions.add(rev)
 		}
 	}
+	
+	def void removeRevision(Revision rev) {
+		if (revisions.contains(rev)) {
+			revisions.remove(rev)
+		}
+	}
 
 	def List<User> obtainUsers() {
 		val DBusers = RepoUsers.instance.allInstances()

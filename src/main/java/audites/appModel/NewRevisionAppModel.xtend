@@ -77,6 +77,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	}
 
 	def void setSelectedDepartment(Department dep) {
+		selectedDepartment.removeRevision(revision)
 		selectedDepartment = dep
 		revision.responsable = dep
 	}

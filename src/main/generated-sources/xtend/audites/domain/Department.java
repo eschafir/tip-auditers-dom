@@ -54,6 +54,13 @@ public class Department {
     }
   }
   
+  public void removeRevision(final Revision rev) {
+    boolean _contains = this.revisions.contains(rev);
+    if (_contains) {
+      this.revisions.remove(rev);
+    }
+  }
+  
   public List<User> obtainUsers() {
     RepoUsers _instance = RepoUsers.getInstance();
     final List<User> DBusers = _instance.allInstances();
