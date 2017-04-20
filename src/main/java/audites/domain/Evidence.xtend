@@ -6,6 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
+import java.nio.file.Paths
 
 @Accessors
 @Observable
@@ -25,6 +26,14 @@ class Evidence {
 
 	new(String p) {
 		path = p
+	}
+	
+	def String getPath(){
+		Paths.get(path).fileName.toString
+	}
+	
+	def String getCompletePath(){
+		path
 	}
 
 }
