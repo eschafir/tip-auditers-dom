@@ -1,17 +1,17 @@
 package audites.appModel
 
+import audites.domain.Evidence
 import audites.domain.Revision
 import audites.domain.User
 import audites.emailSender.ChangedStatusRequirementMail
 import audites.emailSender.CompletedRevisionMail
 import audites.logger.ChangedStatusRequirementLog
 import audites.logger.CompletedRevisionLog
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.Observable
 import audites.logger.DerivedRevisionLog
 import audites.repos.RepoRequirements
 import audites.repos.RepoRevisions
-import audites.domain.Evidence
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -30,6 +30,7 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 		RepoRequirements.instance.update(selectedRequirement)
 		RepoRevisions.instance.update(revision)
 	}
+
 
 	def changeRequirmentStatus() {
 		selectedRequirement.changeRequirmentStatus
