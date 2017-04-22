@@ -151,7 +151,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	def logAndNotify() {
 		logger.write()
-	// mailer.sendEmail()
+		//mailer.sendEmail()
 	}
 
 	def validateRevision() {
