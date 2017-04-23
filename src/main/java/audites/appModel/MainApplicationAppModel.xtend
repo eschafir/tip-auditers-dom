@@ -31,7 +31,8 @@ class MainApplicationAppModel {
 		logger = new LogoutLog(user)
 		logger.write
 	}
-		def getPathImagen() {
+
+	def getPathImagen() {
 		"company.png"
 	}
 }
