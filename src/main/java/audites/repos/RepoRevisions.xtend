@@ -24,4 +24,18 @@ class RepoRevisions extends RepoDefault<Revision> {
 		}
 	}
 
+	def search(String name) {
+		allInstances.filter[revision|this.match(name, revision.name)].toList
+	}
+
+	def match(Object expectedValue, Object realValue) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+	}
+
 }

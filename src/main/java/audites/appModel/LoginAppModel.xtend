@@ -19,6 +19,10 @@ class LoginAppModel {
 		userLoged = new User
 		passwordSubmited = ""
 	}
+	
+	def getIconImage(){
+		"logo.png"
+	}
 
 	def validateUser() {
 		validateEmptyFields(userLoged.username, passwordSubmited)
