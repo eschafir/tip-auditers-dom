@@ -75,6 +75,7 @@ class Revision {
 	def void setAverage(float avg) {
 		average = avg
 		ObservableUtils.firePropertyChanged(this, "average")
+		ObservableUtils.firePropertyChanged(this, "isCompleted")
 	}
 
 	def float getAverage() {
@@ -90,7 +91,7 @@ class Revision {
 		attendant
 	}
 
-	def Boolean isCompleted() {
+	def Boolean getIsCompleted() {
 		return (completedRequirements == requirements.size)
 	}
 

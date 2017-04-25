@@ -69,6 +69,7 @@ class Requirement {
 	def void setIsCompleted(Boolean b) {
 		isCompleted = b
 		ObservableUtils.firePropertyChanged(this, "requirementStatus")
+		ObservableUtils.firePropertyChanged(this, "isCompleted")
 	}
 
 	def String getRequirementStatus() {
@@ -86,6 +87,8 @@ class Requirement {
 	def void changeRequirmentStatus() {
 		isCompleted = !isCompleted
 		ObservableUtils.firePropertyChanged(this, "requirementStatus")
+		ObservableUtils.firePropertyChanged(this, "isCompleted")
+		
 	}
 
 }
