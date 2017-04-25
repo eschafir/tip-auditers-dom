@@ -3,13 +3,13 @@ package audites.appModel
 import audites.domain.Department
 import audites.domain.Revision
 import audites.domain.User
+import audites.repos.RepoRevisions
+import java.io.Serializable
+import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
-import java.io.Serializable
-import java.util.List
-import audites.repos.RepoRevisions
 
 @Observable
 @Accessors
@@ -36,12 +36,22 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	def boolean getRevisionIsNotFinished() {
 		revisionSelected != null && !revisionSelected.isCompleted
 	}
+
 	@Dependencies("revisionSelected")
-	def boolean getRevisionIsSelectedAuditor(){
+	def boolean getRevisionIsSelectedAuditor() {
 		revisionSelected != null
 	}
-	
-	def void search() { 
+
+	def void setRevisionSearch(String rev) {
+		toSearch.name = rev
+		search
+	}
+
+	def String getRevisionSearch() {
+		toSearch.name
+	}
+
+	def void search() {
 		results = RepoRevisions.instance.search(toSearch.name)
 	}
 }
