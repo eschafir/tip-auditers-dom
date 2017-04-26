@@ -69,7 +69,7 @@ class AuditedAppModel extends AuditorAppModel {
 
 	@Dependencies("revisionSelected")
 	def boolean getIsAsignedToAuthor() {
-		!revisionSelected.isDerivedToAuthor
+		revisionSelected != null && !revisionSelected.isDerivedToAuthor
 	}
 
 	def List<User> getObtainUsers() {

@@ -26,14 +26,21 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 		super()
 		departmentSelected = userLoged.departments.head
 //		revisionSelected = userLoged.revisions.head
-		revisionSelected = if(!userLoged.revisions.empty) userLoged.revisions.head else new Revision
+		revisionSelected = if (!userLoged.revisions.empty)
+			userLoged.revisions.filter[revision|revision.archived == false].toList.head
+		else
+			new Revision
 	}
 
 	new(User user) {
 		super(user)
 		departmentSelected = userLoged.departments.head
 //		revisionSelected = userLoged.revisions.head
-		revisionSelected = if(!userLoged.revisions.empty) userLoged.revisions.head else new Revision
+//		revisionSelected = if(!userLoged.revisions.empty) userLoged.revisions.head else new Revision
+		revisionSelected = if (!userLoged.revisions.empty)
+			userLoged.revisions.filter[revision|revision.archived == false].toList.head
+		else
+			new Revision
 	}
 
 	@Dependencies("revisionSelected")
@@ -44,6 +51,11 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	@Dependencies("revisionSelected")
 	def boolean getRevisionIsSelectedAuditor() {
 		revisionSelected != null
+	}
+
+	@Dependencies("revisionSelected")
+	def boolean getRevisionCompletedAndAsigned() {
+		revisionSelected != null && revisionSelected.isCompleted && revisionSelected.attendant == userLoged
 	}
 
 	def void setRevisionSearch(String rev) {
@@ -57,12 +69,18 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	def void search() {
 		val searchResults = RepoRevisions.instance.search(toSearch.name)
-		results = searchResults.filter[revision|userLoged.revisions.contains(revision) || revision.author == userLoged].
-			toList
+		results = searchResults.filter [ revision |
+			(userLoged.revisions.contains(revision) || revision.author == userLoged) && revision.archived == false
+		].toList
 	}
 
 	def formatDate(Date date) {
 		val formatter = new SimpleDateFormat("dd/MM/yyyy")
 		formatter.format(date)
+	}
+
+	def archive() {
+		revisionSelected.archived = true
+		search
 	}
 }

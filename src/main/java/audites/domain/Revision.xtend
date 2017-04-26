@@ -48,6 +48,9 @@ class Revision {
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	User attendant
 
+	@Column
+	Boolean archived = false
+
 	new() {
 		author = new User
 		name = ""
