@@ -5,6 +5,8 @@ import audites.domain.Revision
 import audites.domain.User
 import audites.repos.RepoRevisions
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -55,5 +57,10 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 		val searchResults = RepoRevisions.instance.search(toSearch.name)
 		results = searchResults.filter[revision|userLoged.revisions.contains(revision) || revision.author == userLoged].
 			toList
+	}
+
+	def formatDate(Date date) {
+		val formatter = new SimpleDateFormat("dd/MM/yyyy")
+		formatter.format(date)
 	}
 }
