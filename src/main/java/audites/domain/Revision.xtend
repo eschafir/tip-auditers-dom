@@ -98,5 +98,4 @@ class Revision {
 	def Boolean getIsDerivedToAuthor() {
 		attendant == author
 	}
-
 }
