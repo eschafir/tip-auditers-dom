@@ -63,13 +63,13 @@ class AuditedAppModel extends AuditorAppModel {
 
 	@Dependencies("revisionSelected")
 	def Boolean getRevisionFinished() {
-		revisionSelected != null && revisionSelected.isCompleted &&
-			revisionSelected.attendant == revisionSelected.responsable.maxAuthority
+		revisionSelected != null && revisionSelected.isCompleted && maximumResponsable == userLoged &&
+			revisionSelected.attendant != revisionSelected.author
 	}
 
 	@Dependencies("revisionSelected")
 	def boolean getIsAsignedToAuthor() {
-		revisionSelected != null && !revisionSelected.isDerivedToAuthor
+		revisionSelected != null && !revisionSelected.isDerivedToAuthor && maximumResponsable == userLoged
 	}
 
 	def List<User> getObtainUsers() {
