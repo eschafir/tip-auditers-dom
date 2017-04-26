@@ -1,6 +1,5 @@
 package audites.appModel
 
-import audites.domain.Revision
 import audites.domain.User
 import audites.emailSender.DerivedRevisionMail
 import audites.logger.DerivedRevisionLog
@@ -20,13 +19,13 @@ class AuditedAppModel extends AuditorAppModel {
 	new() {
 		super()
 		selectedUser = null
-		revisionSelected = new Revision
+//		revisionSelected = new Revision
 	}
 
 	new(User user) {
 		super(user)
 		selectedUser = null
-		revisionSelected = new Revision
+//		revisionSelected = new Revision
 	}
 
 	def void setSelectedUser(User user) {

@@ -25,13 +25,15 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	new() {
 		super()
 		departmentSelected = userLoged.departments.head
-		revisionSelected = userLoged.revisions.head
+//		revisionSelected = userLoged.revisions.head
+		revisionSelected = if(!userLoged.revisions.empty) userLoged.revisions.head else new Revision
 	}
 
 	new(User user) {
 		super(user)
 		departmentSelected = userLoged.departments.head
-		revisionSelected = userLoged.revisions.head
+//		revisionSelected = userLoged.revisions.head
+		revisionSelected = if(!userLoged.revisions.empty) userLoged.revisions.head else new Revision
 	}
 
 	@Dependencies("revisionSelected")
