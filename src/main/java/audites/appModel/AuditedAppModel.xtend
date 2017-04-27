@@ -19,13 +19,11 @@ class AuditedAppModel extends AuditorAppModel {
 	new() {
 		super()
 		selectedUser = null
-//		revisionSelected = new Revision
 	}
 
 	new(User user) {
 		super(user)
 		selectedUser = null
-//		revisionSelected = new Revision
 	}
 
 	def void setSelectedUser(User user) {
