@@ -72,15 +72,24 @@ class AuditedAppModel extends AuditorAppModel {
 		revisionSelected != null && !revisionSelected.isDerivedToAuthor && maximumResponsable == userLoged
 	}
 
+	@Dependencies("revisionSelected")
+	def boolean getUserLogedIsMaxResponsable() {
+		revisionSelected != null && !userLoged.revisions.empty &&
+			userLoged.maximumResponsable(revisionSelected.responsable)
+	}
+
+	@Dependencies("revisionSelected")
 	def List<User> getObtainUsers() {
-		var result = newArrayList()
-		val users = revisionSelected.responsable.obtainUsers
-		for (User u : users) {
-			if (u != userLoged) {
-				result.add(u)
+		if (revisionSelected != null) {
+			var result = newArrayList()
+			val users = revisionSelected.responsable.obtainUsers
+			for (User u : users) {
+				if (u != userLoged) {
+					result.add(u)
+				}
 			}
+			return result
 		}
-		return result
 	}
 
 	def getMaximumResponsable() {
