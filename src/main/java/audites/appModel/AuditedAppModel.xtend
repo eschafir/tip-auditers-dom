@@ -105,4 +105,11 @@ class AuditedAppModel extends AuditorAppModel {
 		logger.write
 	}
 
+	def Boolean getArchivedRevisions() {
+	}
+
+	def void setArchivedRevisions(Boolean b) {
+		if(b) searchAll else search
+	}
+
 }

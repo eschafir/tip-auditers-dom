@@ -65,6 +65,12 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 		].toList
 	}
 
+	def void searchAll() {
+		val searchResults = RepoRevisions.instance.search(toSearch.name)
+		results = searchResults.filter[revision|userLoged.revisions.contains(revision) || revision.author == userLoged].
+			toList
+	}
+
 	def formatDate(Date date) {
 		val formatter = new SimpleDateFormat("dd/MM/yyyy")
 		formatter.format(date)
