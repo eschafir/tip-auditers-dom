@@ -9,6 +9,7 @@ import org.uqbar.commons.utils.Observable
 @Accessors
 @Observable
 abstract class RevisionLog extends Logger {
+
 	Revision revision
 
 	new() {

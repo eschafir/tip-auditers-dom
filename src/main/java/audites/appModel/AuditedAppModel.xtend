@@ -26,6 +26,7 @@ class AuditedAppModel extends AuditorAppModel {
 		selectedUser = null
 	}
 
+	@Dependencies("revisionSelected")
 	def void setSelectedUser(User user) {
 		selectedUser = user
 		revisionSelected.attendant = user
@@ -35,6 +36,7 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
 		// mailer.sendEmail
 		logger.write
+		selectedUser = null
 	}
 
 	def User getSelectedUser() {
