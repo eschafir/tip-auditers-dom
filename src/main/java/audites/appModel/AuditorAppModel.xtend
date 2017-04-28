@@ -21,7 +21,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	Set<Department> departments = newHashSet()
 	Department departmentSelected
 	Revision revisionSelected
-	Boolean archivedRevisions = false
+	Boolean withArchivedRevisions = false
 
 	new() {
 		super()
@@ -52,7 +52,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	def void setRevisionSearch(String rev) {
 		toSearch.name = rev
-		if(archivedRevisions) searchAll else search
+		if(withArchivedRevisions) searchAll else search
 	}
 
 	def String getRevisionSearch() {
@@ -82,12 +82,12 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 		search
 	}
 
-	def Boolean getArchivedRevisions() {
-		archivedRevisions
+	def Boolean getWithArchivedRevisions() {
+		withArchivedRevisions
 	}
 
-	def void setArchivedRevisions(Boolean b) {
-		archivedRevisions = b
+	def void setWithArchivedRevisions(Boolean b) {
+		withArchivedRevisions = b
 		if(b) searchAll else search
 	}
 }
