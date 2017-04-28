@@ -104,12 +104,4 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
 		logger.write
 	}
-
-	def Boolean getArchivedRevisions() {
-	}
-
-	def void setArchivedRevisions(Boolean b) {
-		if(b) searchAll else search
-	}
-
 }
