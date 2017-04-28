@@ -34,7 +34,7 @@ public class Department {
   @Column(length = 100)
   private String email;
   
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Set<Revision> revisions = CollectionLiterals.<Revision>newHashSet();
   
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

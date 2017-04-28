@@ -29,7 +29,7 @@ class Department {
 	@Column(length=100)
 	String email
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Revision> revisions = newHashSet()
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -46,7 +46,7 @@ class Department {
 			revisions.add(rev)
 		}
 	}
-	
+
 	def void removeRevision(Revision rev) {
 		if (revisions.contains(rev)) {
 			revisions.remove(rev)

@@ -77,11 +77,30 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 	}
 
 	def void setSelectedDepartment(Department dep) {
-		selectedDepartment.removeRevision(revision)
+		if (selectedDepartment != null) {
+			selectedDepartment.removeRevision(revision)
+		}
+
 		selectedDepartment = dep
 		selectedDepartment.addRevision(revision)
 		revision.responsable = selectedDepartment
 		revision.attendant = selectedDepartment.maxAuthority
+	}
+
+	def getEditRevisionDepartment() { revision.responsable }
+
+	def void setEditRevisionDepartment(Department dep) {
+		if (selectedDepartment != null) {
+			revision.responsable.removeRevision(revision)
+			RepoDepartments.instance.update(revision.responsable)
+		}
+
+		selectedDepartment = dep
+		selectedDepartment.addRevision(revision)
+		revision.responsable = selectedDepartment
+		revision.attendant = selectedDepartment.maxAuthority
+		RepoDepartments.instance.update(revision.responsable)
+		RepoRevisions.instance.update(revision)
 	}
 
 	override getMailer() {
@@ -151,7 +170,7 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	def logAndNotify() {
 		logger.write()
-		//mailer.sendEmail()
+	// mailer.sendEmail()
 	}
 
 	def validateRevision() {

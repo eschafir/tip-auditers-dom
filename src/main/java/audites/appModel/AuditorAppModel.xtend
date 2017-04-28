@@ -47,7 +47,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	@Dependencies("revisionSelected")
 	def boolean getRevisionCompletedAndAsigned() {
-		revisionSelected != null && revisionSelected.isCompleted && revisionSelected.attendant == userLoged
+		revisionSelected != null && revisionSelected.isCompleted && !revisionSelected.archived && revisionSelected.attendant == userLoged
 	}
 
 	def void setRevisionSearch(String rev) {
