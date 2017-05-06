@@ -40,7 +40,7 @@ public class User {
   private String email;
   
   @ManyToMany(fetch = FetchType.LAZY)
-  private Set<Department> departments = CollectionLiterals.<Department>newHashSet();
+  private List<Department> departments = CollectionLiterals.<Department>newArrayList();
   
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Role> roles = CollectionLiterals.<Role>newArrayList();
@@ -143,11 +143,11 @@ public class User {
   }
   
   @Pure
-  public Set<Department> getDepartments() {
+  public List<Department> getDepartments() {
     return this.departments;
   }
   
-  public void setDepartments(final Set<Department> departments) {
+  public void setDepartments(final List<Department> departments) {
     this.departments = departments;
   }
   

@@ -66,7 +66,7 @@ public class Department {
     final List<User> DBusers = _instance.allInstances();
     ArrayList<User> users = CollectionLiterals.<User>newArrayList();
     for (final User u : DBusers) {
-      Set<Department> _departments = u.getDepartments();
+      List<Department> _departments = u.getDepartments();
       boolean _contains = _departments.contains(this);
       if (_contains) {
         users.add(u);

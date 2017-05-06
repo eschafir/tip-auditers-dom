@@ -1,7 +1,6 @@
 package audites.domain
 
 import java.util.List
-import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -34,7 +33,7 @@ class User {
 	String email
 
 	@ManyToMany(fetch=FetchType.LAZY)
-	Set<Department> departments = newHashSet()
+	List<Department> departments = newArrayList()
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	List<Role> roles = newArrayList()

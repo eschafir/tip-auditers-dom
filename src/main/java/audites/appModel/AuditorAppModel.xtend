@@ -26,13 +26,14 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	new() {
 		super()
 		departmentSelected = userLoged.departments.head
-		revisionSelected = userLoged.revisions.filter[revision|revision.archived == false].toList.head
+		revisionSelected = null
+
 	}
 
 	new(User user) {
 		super(user)
 		departmentSelected = userLoged.departments.head
-		revisionSelected = userLoged.revisions.filter[revision|revision.archived == false].toList.head
+		revisionSelected = null
 	}
 
 	@Dependencies("revisionSelected")
@@ -47,7 +48,8 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	@Dependencies("revisionSelected")
 	def boolean getRevisionCompletedAndAsigned() {
-		revisionSelected != null && revisionSelected.isCompleted && !revisionSelected.archived && revisionSelected.attendant == userLoged
+		revisionSelected != null && revisionSelected.isCompleted && !revisionSelected.archived &&
+			revisionSelected.attendant == userLoged
 	}
 
 	def void setRevisionSearch(String rev) {

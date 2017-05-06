@@ -27,7 +27,7 @@ class Requirement {
 	@Column(length=500)
 	String descripcion
 
-	@Column
+	@Column(length=500)
 	String comments
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
