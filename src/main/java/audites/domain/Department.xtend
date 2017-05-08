@@ -54,16 +54,6 @@ class Department {
 	}
 
 	def List<User> getObtainUsers() {
-//		val DBusers = RepoUsers.instance.allInstances()
-//		var users = newArrayList()
-//		for (User u : DBusers) {
-//			if(u.departments.contains(this)) users.add(u)
-//		}
-//		return users
 		RepoUsers.instance.allInstances().filter[user|user.departments.contains(this)].toList
 	}
-
-	def void setObtainUsers(List<User> users) {
-	}
-
 }

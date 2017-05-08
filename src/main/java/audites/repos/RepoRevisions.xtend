@@ -26,10 +26,4 @@ class RepoRevisions extends RepoDefault<Revision> {
 			}
 		}
 	}
-
-	override addQueryBy(Criteria criteria, Object o) {
-		if (o != null) {
-			criteria.add(Restrictions.eq("name", o))
-		}
-	}
 }

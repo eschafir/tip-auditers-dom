@@ -75,9 +75,6 @@ public class Department {
     return IterableExtensions.<User>toList(_filter);
   }
   
-  public void setObtainUsers(final List<User> users) {
-  }
-  
   @Pure
   public Long getId() {
     return this.id;
