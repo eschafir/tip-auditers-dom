@@ -20,7 +20,6 @@ class RepoRevisions extends RepoDefault<Revision> {
 
 	override addQueryByExample(Criteria criteria, Revision revision) {
 		if (revision.name != null) {
-//			criteria.add(Restrictions.eq("name", revision.name))
 			criteria.add(Restrictions.ilike("name", "%" + revision.name + "%"))
 		}
 	}
@@ -40,6 +39,12 @@ class RepoRevisions extends RepoDefault<Revision> {
 			return false
 		}
 		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+	}
+
+	override addQueryBy(Criteria criteria, Object o) {
+		if (o != null) {
+			criteria.add(Restrictions.eq("name", o))
+		}
 	}
 
 }

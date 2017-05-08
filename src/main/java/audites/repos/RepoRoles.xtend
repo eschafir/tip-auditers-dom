@@ -24,5 +24,4 @@ class RepoRoles extends RepoDefault<Role> {
 			criteria.add(Restrictions.eq("name", role.name))
 		}
 	}
-
 }

@@ -25,6 +25,8 @@ abstract class RepoDefault<T> {
 
 	def abstract void addQueryByExample(Criteria criteria, T t)
 
+	def void addQueryBy(Criteria criteria, Object o) {}
+
 	static Session session = sessionFactory.openSession
 
 	def List<T> allInstances() {
@@ -36,6 +38,16 @@ abstract class RepoDefault<T> {
 		try {
 			val criteria = session.createCriteria(getEntityType)
 			this.addQueryByExample(criteria, t)
+			return criteria.list()
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		}
+	}
+
+	def List<T> searchByName(String s) {
+		try {
+			val criteria = session.createCriteria(getEntityType)
+			this.addQueryBy(criteria, s)
 			return criteria.list()
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
@@ -76,6 +88,6 @@ abstract class RepoDefault<T> {
 			throw new RuntimeException(e)
 		}
 	}
-	
-	def void doBeforeCreate(T t) {}	
+
+	def void doBeforeCreate(T t) {}
 }

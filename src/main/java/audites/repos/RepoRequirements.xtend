@@ -30,5 +30,5 @@ class RepoRequirements extends RepoDefault<Requirement> {
 		revision.requirements.remove(req)
 		RepoRevisions.instance.update(revision)
 		super.remove(req)
-	}
+	}	
 }

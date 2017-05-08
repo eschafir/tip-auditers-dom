@@ -184,6 +184,11 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 		validateRequirements()
 	}
 
+	def validateRevisionName() {
+		if(!RepoRevisions.instance.searchByName(revision.name).empty) throw new UserException(
+			"Ya existe una revision con ese nombre.")
+	}
+
 	def deleteRequirement() {
 		RepoRequirements.instance.remove(selectedRequirement, revision)
 	}

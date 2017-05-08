@@ -24,5 +24,4 @@ class RepoDepartments extends RepoDefault<Department> {
 			criteria.add(Restrictions.eq("name", department.name))
 		}
 	}
-
 }
