@@ -61,10 +61,27 @@ class Revision {
 		attendant = responsable.maxAuthority
 	}
 
+	def void setRequirements(List<Requirement> req) {
+		requirements = req
+		ObservableUtils.firePropertyChanged(this, "requirements")
+	}
+
+	def List<Requirement> getRequirements() {
+		requirements
+	}
+
 	def addRequirement(Requirement r) {
 		if (!requirements.contains(r)) {
 			requirements.add(r)
 		}
+		ObservableUtils.firePropertyChanged(this, "requirements")
+	}
+	
+	def removeRequirement(Requirement r) {
+		if (requirements.contains(r)) {
+			requirements.remove(r)
+		}
+		ObservableUtils.firePropertyChanged(this, "requirements")
 	}
 
 	def int completedRequirements() {

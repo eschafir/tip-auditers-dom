@@ -35,13 +35,4 @@ class UserTest {
 
 	}
 
-	@Test
-	def void testIsMaximumResponsable() {
-		val user1 = new User("pepe", "pepe", "123", "pepe@gmail.com")
-		val user2 = new User("lolo", "lolo", "123", "lolo@gmail.com")
-		seginf.maxAuthority = user1
-		assertTrue(user1.maximumResponsable(seginf))
-		assertFalse(user2.maximumResponsable(seginf))
-	}
-
 }

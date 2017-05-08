@@ -21,24 +21,10 @@ class RepoRevisions extends RepoDefault<Revision> {
 	override addQueryByExample(Criteria criteria, Revision revision) {
 		if (revision.name != null) {
 			criteria.add(Restrictions.ilike("name", "%" + revision.name + "%"))
+			if (revision.archived == false) {
+				criteria.add(Restrictions.eq("archived", revision.archived))
+			}
 		}
-	}
-
-	def search(String _name) {
-		searchByExample(new Revision => [
-			name = _name
-		])
-	// allInstances.filter[revision|this.match(name, revision.name)].toList
-	}
-
-	def match(Object expectedValue, Object realValue) {
-		if (expectedValue == null) {
-			return true
-		}
-		if (realValue == null) {
-			return false
-		}
-		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
 	}
 
 	override addQueryBy(Criteria criteria, Object o) {
@@ -46,5 +32,4 @@ class RepoRevisions extends RepoDefault<Revision> {
 			criteria.add(Restrictions.eq("name", o))
 		}
 	}
-
 }

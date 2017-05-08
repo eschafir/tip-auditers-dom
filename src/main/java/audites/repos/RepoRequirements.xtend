@@ -27,8 +27,8 @@ class RepoRequirements extends RepoDefault<Requirement> {
 	}
 
 	def remove(Requirement req, Revision revision) {
-		revision.requirements.remove(req)
+		revision.removeRequirement(req)
 		RepoRevisions.instance.update(revision)
 		super.remove(req)
-	}	
+	}
 }

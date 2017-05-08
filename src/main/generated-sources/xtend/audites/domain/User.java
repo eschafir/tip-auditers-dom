@@ -3,7 +3,6 @@ package audites.domain;
 import audites.domain.Department;
 import audites.domain.Revision;
 import audites.domain.Role;
-import com.google.common.base.Objects;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -90,11 +89,6 @@ public class User {
       }
     }
     return this.revisions;
-  }
-  
-  public Boolean maximumResponsable(final Department dep) {
-    User _maxAuthority = dep.getMaxAuthority();
-    return Boolean.valueOf(Objects.equal(_maxAuthority, this));
   }
   
   @Pure

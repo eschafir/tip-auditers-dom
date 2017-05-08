@@ -54,7 +54,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	def void setRevisionSearch(String rev) {
 		toSearch.name = rev
-		if(withArchivedRevisions) searchAll else search
+		search
 	}
 
 	def String getRevisionSearch() {
@@ -62,15 +62,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	}
 
 	def void search() {
-		val searchResults = RepoRevisions.instance.search(toSearch.name)
-//		val searchResults = RepoRevisions.instance.searchByExample(toSearch.name)
-		results = searchResults.filter [ revision |
-			(userLoged.revisions.contains(revision) || revision.author == userLoged) && revision.archived == false
-		].toList
-	}
-
-	def void searchAll() {
-		val searchResults = RepoRevisions.instance.search(toSearch.name)
+		val searchResults = RepoRevisions.instance.searchByExample(toSearch)
 		results = searchResults.filter[revision|userLoged.revisions.contains(revision) || revision.author == userLoged].
 			toList
 	}
@@ -82,6 +74,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	def archive() {
 		revisionSelected.archived = true
+		RepoRevisions.instance.update(revisionSelected)
 		search
 	}
 
@@ -90,7 +83,8 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	}
 
 	def void setWithArchivedRevisions(Boolean b) {
+		toSearch.archived = b
 		withArchivedRevisions = b
-		if(b) searchAll else search
+		search
 	}
 }

@@ -1,5 +1,7 @@
 package audites.domain
 
+import audites.repos.RepoUsers
+import java.util.List
 import java.util.Set
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -11,8 +13,6 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import java.util.List
-import audites.repos.RepoUsers
 
 @Observable
 @Accessors
@@ -53,13 +53,17 @@ class Department {
 		}
 	}
 
-	def List<User> obtainUsers() {
-		val DBusers = RepoUsers.instance.allInstances()
-		var users = newArrayList()
-		for (User u : DBusers) {
-			if(u.departments.contains(this)) users.add(u)
-		}
-		return users
+	def List<User> getObtainUsers() {
+//		val DBusers = RepoUsers.instance.allInstances()
+//		var users = newArrayList()
+//		for (User u : DBusers) {
+//			if(u.departments.contains(this)) users.add(u)
+//		}
+//		return users
+		RepoUsers.instance.allInstances().filter[user|user.departments.contains(this)].toList
+	}
+
+	def void setObtainUsers(List<User> users) {
 	}
 
 }

@@ -58,7 +58,8 @@ abstract class RepoDefault<T> {
 		try {
 			t.doBeforeCreate
 			session.beginTransaction
-			session.save(t)
+//			session.save(t)
+			session.saveOrUpdate(t)
 			session.getTransaction.commit
 		} catch (HibernateException e) {
 			session.getTransaction.rollback

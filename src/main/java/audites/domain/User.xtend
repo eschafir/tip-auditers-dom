@@ -65,7 +65,7 @@ class User {
 		if(!revisions.contains(rev)) revisions.add(rev)
 	}
 
-	def getRevisions() {
+	def List<Revision> getRevisions() {
 		for (Department d : departments) {
 			for (Revision r : d.revisions) {
 				if (!revisions.contains(r)) {
@@ -75,9 +75,4 @@ class User {
 		}
 		return revisions
 	}
-
-	def Boolean maximumResponsable(Department dep) {
-		dep.maxAuthority == this
-	}
-
 }

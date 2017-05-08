@@ -3,7 +3,6 @@ package audites.domain;
 import audites.domain.Revision;
 import audites.domain.User;
 import audites.repos.RepoUsers;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -16,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.utils.Observable;
 
@@ -61,18 +62,20 @@ public class Department {
     }
   }
   
-  public List<User> obtainUsers() {
+  public List<User> getObtainUsers() {
     RepoUsers _instance = RepoUsers.getInstance();
-    final List<User> DBusers = _instance.allInstances();
-    ArrayList<User> users = CollectionLiterals.<User>newArrayList();
-    for (final User u : DBusers) {
-      List<Department> _departments = u.getDepartments();
-      boolean _contains = _departments.contains(this);
-      if (_contains) {
-        users.add(u);
+    List<User> _allInstances = _instance.allInstances();
+    final Function1<User, Boolean> _function = new Function1<User, Boolean>() {
+      public Boolean apply(final User user) {
+        List<Department> _departments = user.getDepartments();
+        return Boolean.valueOf(_departments.contains(Department.this));
       }
-    }
-    return users;
+    };
+    Iterable<User> _filter = IterableExtensions.<User>filter(_allInstances, _function);
+    return IterableExtensions.<User>toList(_filter);
+  }
+  
+  public void setObtainUsers(final List<User> users) {
   }
   
   @Pure
