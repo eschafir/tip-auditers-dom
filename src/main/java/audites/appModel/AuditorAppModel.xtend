@@ -63,6 +63,7 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 
 	def void search() {
 		val searchResults = RepoRevisions.instance.search(toSearch.name)
+//		val searchResults = RepoRevisions.instance.searchByExample(toSearch.name)
 		results = searchResults.filter [ revision |
 			(userLoged.revisions.contains(revision) || revision.author == userLoged) && revision.archived == false
 		].toList

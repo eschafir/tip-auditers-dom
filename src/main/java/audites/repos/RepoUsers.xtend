@@ -20,9 +20,8 @@ class RepoUsers extends RepoDefault<User> {
 		typeof(User)
 	}
 
-	override create(User t) {
-		t.password = DigestUtils.sha256Hex(t.password)
-		super.create(t)
+	override doBeforeCreate(User user) {
+		user.password = DigestUtils.sha256Hex(user.password)
 	}
 
 	override addQueryByExample(Criteria criteria, User user) {

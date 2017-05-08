@@ -44,6 +44,7 @@ abstract class RepoDefault<T> {
 
 	def void create(T t) {
 		try {
+			t.doBeforeCreate
 			session.beginTransaction
 			session.save(t)
 			session.getTransaction.commit
@@ -66,6 +67,7 @@ abstract class RepoDefault<T> {
 
 	def void update(T t) {
 		try {
+			t.doBeforeCreate
 			session.beginTransaction
 			session.merge(t)
 			session.getTransaction.commit
@@ -74,4 +76,6 @@ abstract class RepoDefault<T> {
 			throw new RuntimeException(e)
 		}
 	}
+	
+	def void doBeforeCreate(T t) {}	
 }

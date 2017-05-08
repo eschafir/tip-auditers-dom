@@ -20,12 +20,16 @@ class RepoRevisions extends RepoDefault<Revision> {
 
 	override addQueryByExample(Criteria criteria, Revision revision) {
 		if (revision.name != null) {
-			criteria.add(Restrictions.eq("name", revision.name))
+//			criteria.add(Restrictions.eq("name", revision.name))
+			criteria.add(Restrictions.ilike("name", "%" + revision.name + "%"))
 		}
 	}
 
-	def search(String name) {
-		allInstances.filter[revision|this.match(name, revision.name)].toList
+	def search(String _name) {
+		searchByExample(new Revision => [
+			name = _name
+		])
+	// allInstances.filter[revision|this.match(name, revision.name)].toList
 	}
 
 	def match(Object expectedValue, Object realValue) {
