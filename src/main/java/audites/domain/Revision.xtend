@@ -76,7 +76,7 @@ class Revision {
 		}
 		ObservableUtils.firePropertyChanged(this, "requirements")
 	}
-	
+
 	def removeRequirement(Requirement r) {
 		if (requirements.contains(r)) {
 			requirements.remove(r)
@@ -85,11 +85,7 @@ class Revision {
 	}
 
 	def int completedRequirements() {
-		var amount = 0
-		for (Requirement requirement : requirements) {
-			if(requirement.isCompleted) amount += 1
-		}
-		return amount
+		requirements.filter[req|req.isCompleted].toList.size
 	}
 
 	def void setAverage(float avg) {
@@ -99,7 +95,7 @@ class Revision {
 	}
 
 	def float getAverage() {
-		((completedRequirements * 100) / requirements.size)
+		((completedRequirements * 1f ) / requirements.size)
 	}
 
 	def void setAttendant(User u) {
@@ -113,6 +109,10 @@ class Revision {
 
 	def Boolean getIsCompleted() {
 		return (completedRequirements == requirements.size)
+	}
+
+	def Boolean getIsExpired() {
+		endDate < new Date
 	}
 
 	def Boolean getIsDerivedToAuthor() {

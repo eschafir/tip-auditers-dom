@@ -15,6 +15,7 @@ import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
+import java.util.Date
 
 @Observable
 @Accessors
@@ -141,6 +142,15 @@ class NewRevisionAppModel extends MainApplicationAppModel {
 
 	def String getRevisionComment() {
 		this.revision.description
+	}
+
+	def void setRevisionEndDate(Date date) {
+		revision.endDate = date
+		RepoRevisions.instance.update(revision)
+	}
+
+	def Date getRevisionEndDate() {
+		revision.endDate
 	}
 
 	def void setRevisionComment(String comment) {

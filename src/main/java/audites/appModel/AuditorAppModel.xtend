@@ -12,6 +12,7 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
+import java.text.DecimalFormat
 
 @Observable
 @Accessors
@@ -70,6 +71,13 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	def formatDate(Date date) {
 		val formatter = new SimpleDateFormat("dd/MM/yyyy")
 		formatter.format(date)
+	}
+
+	def formatAverage(Float avg) {
+		val formatter = new DecimalFormat("#0.00" + " %")
+		val formatterCompleted = new DecimalFormat("#0" + " %")
+		if(avg == 1.00 || avg == 0.00) formatterCompleted.format(avg) else formatter.format(avg)
+
 	}
 
 	def archive() {
