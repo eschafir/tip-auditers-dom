@@ -34,6 +34,7 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "selectedUser")
 		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
+		ObservableUtils.firePropertyChanged(this, "userLoged")
 		// mailer.sendEmail
 		logger.write
 		selectedUser = null

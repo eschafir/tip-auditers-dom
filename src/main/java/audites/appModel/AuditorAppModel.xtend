@@ -74,10 +74,10 @@ class AuditorAppModel extends MainApplicationAppModel implements Serializable {
 	}
 
 	def formatAverage(Float avg) {
-		val formatter = new DecimalFormat("#0.00" + " %")
-		val formatterCompleted = new DecimalFormat("#0" + " %")
-		if(avg == 1.00 || avg == 0.00) formatterCompleted.format(avg) else formatter.format(avg)
-
+		if (avg == 1.00 || avg == 0.00)
+			new DecimalFormat("#0" + " %").format(avg)
+		else
+			new DecimalFormat("#0.00" + " %").format(avg)
 	}
 
 	def archive() {

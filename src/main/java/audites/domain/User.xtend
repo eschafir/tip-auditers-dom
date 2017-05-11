@@ -10,6 +10,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import java.util.Set
 
 @Observable
 @Accessors
@@ -61,6 +62,12 @@ class User {
 		}
 	}
 
+	def void removeDepartment(Department dep) {
+		if (departments.contains(dep)) {
+			departments.remove(dep)
+		}
+	}
+
 	def void addRevision(Revision rev) {
 		if(!revisions.contains(rev)) revisions.add(rev)
 	}
@@ -74,5 +81,13 @@ class User {
 			}
 		}
 		return revisions
+	}
+
+	def Set<String> getDepartmentsNames() {
+		var list = newHashSet()
+		for (Department dep : departments) {
+			list.add(dep.name)
+		}
+		list
 	}
 }

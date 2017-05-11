@@ -3,6 +3,7 @@ package audites.domain;
 import audites.domain.Department;
 import audites.domain.Revision;
 import audites.domain.Role;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -69,6 +70,13 @@ public class User {
     }
   }
   
+  public void removeDepartment(final Department dep) {
+    boolean _contains = this.departments.contains(dep);
+    if (_contains) {
+      this.departments.remove(dep);
+    }
+  }
+  
   public void addRevision(final Revision rev) {
     boolean _contains = this.revisions.contains(rev);
     boolean _not = (!_contains);
@@ -89,6 +97,19 @@ public class User {
       }
     }
     return this.revisions;
+  }
+  
+  public Set<String> getDepartmentsNames() {
+    HashSet<String> _xblockexpression = null;
+    {
+      HashSet<String> list = CollectionLiterals.<String>newHashSet();
+      for (final Department dep : this.departments) {
+        String _name = dep.getName();
+        list.add(_name);
+      }
+      _xblockexpression = list;
+    }
+    return _xblockexpression;
   }
   
   @Pure
