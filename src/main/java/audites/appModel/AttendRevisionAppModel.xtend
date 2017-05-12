@@ -31,7 +31,6 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 		RepoRevisions.instance.update(revision)
 	}
 
-
 	def changeRequirmentStatus() {
 		selectedRequirement.changeRequirmentStatus
 		// mailer.sendEmail
@@ -48,6 +47,7 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	def deriveToMaxAuthority() {
 		revision.attendant = revisionMaxAuthority
+		RepoRevisions.instance.update(revision)
 		val log = new DerivedRevisionLog(userLoged, revision)
 		log.write
 	}

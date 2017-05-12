@@ -4,7 +4,7 @@ import audites.domain.Evidence
 import audites.domain.Requirement
 import audites.domain.Revision
 import audites.domain.User
-import java.util.Set
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
@@ -22,7 +22,7 @@ class CheckRevisionAppModel extends NewRevisionAppModel {
 		selectedRequirement = requirement
 	}
 
-	def Set<Evidence> getEvidencesOfRequirementSelected() {
+	def List<Evidence> getEvidencesOfRequirementSelected() {
 		selectedRequirement.evidences
 	}
 
