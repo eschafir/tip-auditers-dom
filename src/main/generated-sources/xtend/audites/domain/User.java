@@ -77,6 +77,25 @@ public class User {
     }
   }
   
+  public boolean addRole(final Role role) {
+    boolean _xifexpression = false;
+    boolean _contains = this.roles.contains(role);
+    boolean _not = (!_contains);
+    if (_not) {
+      _xifexpression = this.roles.add(role);
+    }
+    return _xifexpression;
+  }
+  
+  public boolean removeRole(final Role role) {
+    boolean _xifexpression = false;
+    boolean _contains = this.roles.contains(role);
+    if (_contains) {
+      _xifexpression = this.roles.remove(role);
+    }
+    return _xifexpression;
+  }
+  
   public void addRevision(final Revision rev) {
     boolean _contains = this.revisions.contains(rev);
     boolean _not = (!_contains);

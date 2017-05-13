@@ -10,6 +10,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.Dependencies
 
 @Observable
 @Accessors
@@ -70,6 +71,16 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		RepoUsers.instance.update(user)
 	}
 
+	def addRole() {
+		user.addRole(selectorRole)
+		RepoUsers.instance.update(user)
+	}
+
+	def removeRole() {
+		user.removeRole(selectedRole)
+		RepoUsers.instance.update(user)
+	}
+
 	def void createUser() {
 		user.password = ""
 		RepoUsers.instance.create(user)
@@ -96,6 +107,33 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		if (user.departments.empty) {
 			throw new UserException("Debe ingresar al menos un Departamento.")
 		}
+	}
+
+	@Dependencies("selectorDepartment")
+	def Boolean getIsDepartmentIngresed() {
+		selectorDepartment != null
+	}
+
+	@Dependencies("selectedDepartment")
+	def Boolean getIsDepartmentSelected() {
+		selectedDepartment != null
+	}
+
+	@Dependencies("selectorRole")
+	def Boolean getIsRoleIngresed() {
+		selectorRole != null
+	}
+
+	@Dependencies("selectedRole")
+	def Boolean getIsRoleSelected() {
+		selectedRole != null
+	}
+
+	def cancellCreation() {
+		if(!user.departments.empty) user.departments.removeAll()
+		if(!user.roles.empty) user.roles.removeAll()
+		RepoUsers.instance.update(user)
+		RepoUsers.instance.remove(user)
 	}
 
 }

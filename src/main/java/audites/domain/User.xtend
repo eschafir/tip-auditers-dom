@@ -57,15 +57,19 @@ class User {
 	}
 
 	def void addDepartment(Department dep) {
-		if (!departments.contains(dep)) {
-			departments.add(dep)
-		}
+		if(!departments.contains(dep)) departments.add(dep)
 	}
 
 	def void removeDepartment(Department dep) {
-		if (departments.contains(dep)) {
-			departments.remove(dep)
-		}
+		if(departments.contains(dep)) departments.remove(dep)
+	}
+
+	def addRole(Role role) {
+		if(!roles.contains(role)) roles.add(role)
+	}
+
+	def removeRole(Role role) {
+		if(roles.contains(role)) roles.remove(role)
 	}
 
 	def void addRevision(Revision rev) {
