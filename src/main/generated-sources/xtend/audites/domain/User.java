@@ -47,6 +47,9 @@ public class User {
   @ManyToMany(fetch = FetchType.LAZY)
   private List<Revision> revisions = CollectionLiterals.<Revision>newArrayList();
   
+  @Column
+  private Boolean enabled = Boolean.valueOf(true);
+  
   public User() {
     this.name = "";
     this.username = "";
@@ -130,6 +133,10 @@ public class User {
     return _xblockexpression;
   }
   
+  public void changeStatus(final Boolean b) {
+    this.enabled = b;
+  }
+  
   @Pure
   public Long getId() {
     return this.id;
@@ -195,5 +202,14 @@ public class User {
   
   public void setRevisions(final List<Revision> revisions) {
     this.revisions = revisions;
+  }
+  
+  @Pure
+  public Boolean getEnabled() {
+    return this.enabled;
+  }
+  
+  public void setEnabled(final Boolean enabled) {
+    this.enabled = enabled;
   }
 }

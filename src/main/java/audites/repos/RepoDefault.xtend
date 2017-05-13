@@ -14,6 +14,7 @@ import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
 import audites.domain.Evidence
+import org.hibernate.criterion.Restrictions
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
@@ -37,6 +38,17 @@ abstract class RepoDefault<T> {
 			val criteria = session.createCriteria(getEntityType)
 			this.addQueryByExample(criteria, t)
 			return criteria.list()
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		}
+	}
+
+	def T searchById(Long id) {
+		try {
+			val criteria = session.createCriteria(getEntityType)
+//			this.addQueryByExample(criteria, t)
+			criteria.add(Restrictions.eq("id", id))
+			return criteria.list().head
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		}

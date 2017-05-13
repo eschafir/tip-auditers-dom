@@ -9,8 +9,8 @@ import audites.repos.RepoUsers
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.utils.Dependencies
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -129,16 +129,27 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		selectedRole != null
 	}
 
+	@Dependencies("user")
+	def Boolean getUserIsEnabled() {
+		user.enabled
+	}
+
+	@Dependencies("user")
+	def Boolean getUserIsDisabled() {
+		!user.enabled
+	}
+
 	def cancelCreation() {
 		if(!user.departments.empty) user.departments.removeAll
 		if(!user.roles.empty) user.roles.removeAll
-//		RepoUsers.instance.update(user)	
 		RepoUsers.instance.remove(user)
 	}
 
 	def cancelEdit() {
-		val userBD = RepoUsers.instance.searchByExample(user).head
-		user = userBD
+	}
+
+	def changeUserStatus() {
+		user.changeStatus(!user.enabled)
 		RepoUsers.instance.update(user)
 	}
 

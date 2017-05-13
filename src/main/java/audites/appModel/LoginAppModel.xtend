@@ -19,15 +19,21 @@ class LoginAppModel {
 		userLoged = new User
 		passwordSubmited = ""
 	}
-	
-	def getIconImage(){
+
+	def getIconImage() {
 		"logo.png"
 	}
 
 	def validateUser() {
+		validateUserStatus()
 		validateEmptyFields(userLoged.username, passwordSubmited)
 		validateUsername(userLoged.username)
 		validatePassword(passwordSubmited)
+	}
+
+	def validateUserStatus() {
+		if (RepoUsers.instance.searchByExample(userLoged).exists[it.enabled == false])
+			throw new UserException("El usuario no esta habilitado para ingresar al sistema.")
 	}
 
 	def validateEmptyFields(String usernameSubmited, String submitedPass) {
@@ -46,6 +52,7 @@ class LoginAppModel {
 
 	def validatePassword(String string) {
 		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
+//		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == string]) {
 			throw new UserException("Clave incorrecta")
 		}
 	}

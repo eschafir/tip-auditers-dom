@@ -41,6 +41,9 @@ class User {
 	@ManyToMany(fetch=FetchType.LAZY)
 	List<Revision> revisions = newArrayList()
 
+	@Column
+	Boolean enabled = true
+
 	new() {
 		name = ""
 		username = ""
@@ -92,5 +95,9 @@ class User {
 			list.add(dep.name)
 		}
 		list
+	}
+
+	def void changeStatus(Boolean b) {
+		enabled = b
 	}
 }

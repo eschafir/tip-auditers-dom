@@ -44,5 +44,4 @@ class AdminPanelAppModel extends MainApplicationAppModel {
 	def Boolean getHasUserSelected() {
 		selectedUser != null
 	}
-
 }
