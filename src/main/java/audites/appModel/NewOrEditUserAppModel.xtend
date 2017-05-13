@@ -129,11 +129,17 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		selectedRole != null
 	}
 
-	def cancellCreation() {
-		if(!user.departments.empty) user.departments.removeAll()
-		if(!user.roles.empty) user.roles.removeAll()
-		RepoUsers.instance.update(user)
+	def cancelCreation() {
+		if(!user.departments.empty) user.departments.removeAll
+		if(!user.roles.empty) user.roles.removeAll
+//		RepoUsers.instance.update(user)	
 		RepoUsers.instance.remove(user)
+	}
+
+	def cancelEdit() {
+		val userBD = RepoUsers.instance.searchByExample(user).head
+		user = userBD
+		RepoUsers.instance.update(user)
 	}
 
 }

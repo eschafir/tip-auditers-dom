@@ -6,7 +6,6 @@ import audites.domain.Role;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +41,7 @@ public class User {
   @ManyToMany(fetch = FetchType.LAZY)
   private List<Department> departments = CollectionLiterals.<Department>newArrayList();
   
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY)
   private List<Role> roles = CollectionLiterals.<Role>newArrayList();
   
   @ManyToMany(fetch = FetchType.LAZY)

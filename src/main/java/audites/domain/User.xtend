@@ -1,7 +1,7 @@
 package audites.domain
 
 import java.util.List
-import javax.persistence.CascadeType
+import java.util.Set
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -10,7 +10,6 @@ import javax.persistence.Id
 import javax.persistence.ManyToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
-import java.util.Set
 
 @Observable
 @Accessors
@@ -36,7 +35,7 @@ class User {
 	@ManyToMany(fetch=FetchType.LAZY)
 	List<Department> departments = newArrayList()
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY)
 	List<Role> roles = newArrayList()
 
 	@ManyToMany(fetch=FetchType.LAZY)
