@@ -51,6 +51,9 @@ class Revision {
 	@Column
 	Boolean archived = false
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	Report report = null
+
 	new() {
 		author = new User
 		name = ""

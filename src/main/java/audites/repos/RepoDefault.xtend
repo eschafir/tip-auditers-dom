@@ -15,12 +15,13 @@ import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
 import audites.domain.Evidence
 import org.hibernate.criterion.Restrictions
+import audites.domain.Report
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
-		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Requirement).
-		addAnnotatedClass(Evidence).addAnnotatedClass(Admin).addAnnotatedClass(Auditor).addAnnotatedClass(Audited).
-		buildSessionFactory()
+		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Report).
+		addAnnotatedClass(Requirement).addAnnotatedClass(Evidence).addAnnotatedClass(Admin).addAnnotatedClass(Auditor).
+		addAnnotatedClass(Audited).buildSessionFactory()
 
 	def abstract Class<T> getEntityType()
 
