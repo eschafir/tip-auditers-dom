@@ -15,6 +15,7 @@ import org.uqbar.commons.utils.Observable
 class AuditedAppModel extends AuditorAppModel {
 
 	User selectedUser
+	Boolean onlyAssigned = false
 
 	new() {
 		super()
@@ -98,4 +99,25 @@ class AuditedAppModel extends AuditorAppModel {
 		ObservableUtils.firePropertyChanged(this, "revisionIsDerived")
 		logger.write
 	}
+
+	def Boolean getOnlyAssigned() {
+		onlyAssigned
+	}
+
+	def void setOnlyAssigned(Boolean b) {
+		onlyAssigned = b
+		search
+	}
+
+	override search() {
+		super.search()
+		val searchResults = RepoRevisions.instance.searchByExample(toSearch)
+		if (onlyAssigned) {
+			results = searchResults.filter [ revision |
+				userLoged.revisions.contains(revision) && revision.attendant == userLoged
+			].toList
+		}
+
+	}
+
 }
