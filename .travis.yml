@@ -5,4 +5,4 @@ cache:
 jdk:
   - oraclejdk8
 script: 
-  - mvn clean install
+  - mvn clean install -Dmaven.compiler.target=1.8 -Dmaven.compiler.source=1.8
