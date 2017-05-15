@@ -27,9 +27,8 @@ class Report {
 		observations = ""
 	}
 
-	new(Revision rev) {
-		name = "Observaciones de " + rev.name
-		observations = ""
+	def updateName(String string) {
+		name = "Observaciones de " + string
 	}
 
 }

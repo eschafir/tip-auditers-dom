@@ -87,6 +87,12 @@ class AuditedAppModel extends AuditorAppModel {
 		}
 	}
 
+	@Dependencies("revisionSelected")
+	def Boolean getHasReport() {
+		revisionSelected != null && revisionSelected.responsable.maxAuthority == userLoged &&
+			revisionSelected.report.observations != ""
+	}
+
 	def getMaximumResponsable() {
 		revisionSelected.responsable.maxAuthority
 	}

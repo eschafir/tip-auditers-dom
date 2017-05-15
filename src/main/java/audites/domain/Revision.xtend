@@ -51,8 +51,8 @@ class Revision {
 	@Column
 	Boolean archived = false
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	Report report = null
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	Report report
 
 	new() {
 		author = new User
@@ -62,6 +62,13 @@ class Revision {
 		endDate = new Date
 		responsable = new Department
 		attendant = responsable.maxAuthority
+		report = new Report
+	}
+
+	def void setName(String name) {
+		this.name = name
+		report.updateName(name)
+		ObservableUtils.firePropertyChanged(this, "name")
 	}
 
 	def void setRequirements(List<Requirement> req) {
