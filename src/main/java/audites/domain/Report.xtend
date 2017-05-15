@@ -19,12 +19,17 @@ class Report {
 	@Column
 	String name
 
+	@Column(length=500)
+	String observations
+
 	new() {
 		name = ""
+		observations = ""
 	}
 
 	new(Revision rev) {
 		name = "Observaciones de " + rev.name
+		observations = ""
 	}
 
 }

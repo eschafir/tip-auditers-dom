@@ -93,6 +93,7 @@ class AuditedAppModel extends AuditorAppModel {
 
 	def deriveToAuthor() {
 		revisionSelected.attendant = revisionSelected.author
+		RepoRevisions.instance.update(revisionSelected)
 		ObservableUtils.firePropertyChanged(this, "isAsignedToAuthor")
 		ObservableUtils.firePropertyChanged(this, "revisionFinished")
 		ObservableUtils.firePropertyChanged(this, "revisionIsSelectedAudited")
