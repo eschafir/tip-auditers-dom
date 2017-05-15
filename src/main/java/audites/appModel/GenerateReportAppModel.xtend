@@ -35,7 +35,7 @@ class GenerateReportAppModel extends MainApplicationAppModel {
 	}
 
 	def void setObservations(String obs) {
-		revision.report.observations = obs
+//		revision.report.observations = obs
 		ObservableUtils.firePropertyChanged(this, "observations")
 
 	}
