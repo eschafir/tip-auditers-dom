@@ -24,7 +24,6 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 	}
 
 	def saveOrUpdateReport() {
-		//verificar
 		RepoReports.instance.update(revision.report)
 		RepoRevisions.instance.update(revision)
 	}

@@ -128,4 +128,8 @@ class Revision {
 	def Boolean getIsDerivedToAuthor() {
 		attendant == author
 	}
+
+	def Boolean getIsExpiredAndNotCompleted() {
+		isExpired && !isCompleted
+	}
 }
