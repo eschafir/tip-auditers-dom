@@ -69,7 +69,7 @@ abstract class RepoDefault<T> {
 
 	def void update(T t) {
 		try {
-			t.doBeforeCreate
+//			t.doBeforeCreate
 			session.beginTransaction
 			session.merge(t)
 			session.getTransaction.commit

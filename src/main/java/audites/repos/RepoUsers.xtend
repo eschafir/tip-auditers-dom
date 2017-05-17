@@ -1,9 +1,9 @@
 package audites.repos
 
-import org.hibernate.Criteria
-import org.hibernate.criterion.Restrictions
 import audites.domain.User
 import org.apache.commons.codec.digest.DigestUtils
+import org.hibernate.Criteria
+import org.hibernate.criterion.Restrictions
 
 class RepoUsers extends RepoDefault<User> {
 

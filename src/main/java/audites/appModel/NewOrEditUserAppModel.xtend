@@ -88,7 +88,7 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		RepoUsers.instance.update(user)
 	}
 
-	def saveOrUpdate() {
+	def save() {
 		validateUserInfo
 		user.password = passwordIngresed
 		RepoUsers.instance.update(user)
@@ -150,6 +150,11 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 
 	def changeUserStatus() {
 		user.changeStatus(!user.enabled)
+		RepoUsers.instance.update(user)
+	}
+
+	def update() {
+		validateUserInfo
 		RepoUsers.instance.update(user)
 	}
 
