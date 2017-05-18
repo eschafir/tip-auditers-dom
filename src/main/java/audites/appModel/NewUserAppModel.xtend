@@ -7,12 +7,12 @@ import audites.repos.RepoDepartments
 import audites.repos.RepoRoles
 import audites.repos.RepoUsers
 import java.util.List
+import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
-import org.apache.commons.codec.digest.DigestUtils
-import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
@@ -96,9 +96,8 @@ class NewUserAppModel extends MainApplicationAppModel {
 	}
 
 	def void createUser() {
-		user.password = ""
-		RepoUsers.instance.create(user)
 		user.password = passwordIngresed
+		RepoUsers.instance.create(user)
 		RepoUsers.instance.update(user)
 	}
 
