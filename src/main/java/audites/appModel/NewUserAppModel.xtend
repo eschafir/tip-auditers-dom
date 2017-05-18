@@ -11,10 +11,12 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
+import org.apache.commons.codec.digest.DigestUtils
+import org.uqbar.commons.model.ObservableUtils
 
 @Observable
 @Accessors
-class NewOrEditUserAppModel extends MainApplicationAppModel {
+class NewUserAppModel extends MainApplicationAppModel {
 
 	User user
 	List<Department> departments
@@ -61,24 +63,36 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		passwordIngresed = ""
 	}
 
+	def getUserDepartments() {
+		user.departments
+	}
+
+	def getUserRoles() {
+		user.roles
+	}
+
 	def addDepartment() {
 		user.addDepartment(selectorDepartment)
 		RepoUsers.instance.update(user)
+		ObservableUtils.firePropertyChanged(this, "userDepartments")
 	}
 
 	def removeDepartment() {
 		user.removeDepartment(selectedDepartment)
 		RepoUsers.instance.update(user)
+		ObservableUtils.firePropertyChanged(this, "userDepartments")
 	}
 
 	def addRole() {
 		user.addRole(selectorRole)
 		RepoUsers.instance.update(user)
+		ObservableUtils.firePropertyChanged(this, "userRoles")
 	}
 
 	def removeRole() {
 		user.removeRole(selectedRole)
 		RepoUsers.instance.update(user)
+		ObservableUtils.firePropertyChanged(this, "userRoles")
 	}
 
 	def void createUser() {
@@ -90,7 +104,7 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 
 	def save() {
 		validateUserInfo
-		user.password = passwordIngresed
+		user.password = DigestUtils.sha256Hex(passwordIngresed)
 		RepoUsers.instance.update(user)
 	}
 
@@ -129,33 +143,9 @@ class NewOrEditUserAppModel extends MainApplicationAppModel {
 		selectedRole != null
 	}
 
-	@Dependencies("user")
-	def Boolean getUserIsEnabled() {
-		user.enabled
-	}
-
-	@Dependencies("user")
-	def Boolean getUserIsDisabled() {
-		!user.enabled
-	}
-
 	def cancelCreation() {
 		if(!user.departments.empty) user.departments.removeAll
 		if(!user.roles.empty) user.roles.removeAll
 		RepoUsers.instance.remove(user)
 	}
-
-	def cancelEdit() {
-	}
-
-	def changeUserStatus() {
-		user.changeStatus(!user.enabled)
-		RepoUsers.instance.update(user)
-	}
-
-	def update() {
-		validateUserInfo
-		RepoUsers.instance.update(user)
-	}
-
 }
