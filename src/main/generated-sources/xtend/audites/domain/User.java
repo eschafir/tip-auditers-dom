@@ -110,12 +110,12 @@ public class User {
   }
   
   public List<Revision> getRevisions() {
-    final Function1<Department, List<Revision>> _function = new Function1<Department, List<Revision>>() {
-      public List<Revision> apply(final Department it) {
-        return User.this.revisions;
+    final Function1<Department, Set<Revision>> _function = new Function1<Department, Set<Revision>>() {
+      public Set<Revision> apply(final Department it) {
+        return it.getRevisions();
       }
     };
-    List<List<Revision>> _map = ListExtensions.<Department, List<Revision>>map(this.departments, _function);
+    List<Set<Revision>> _map = ListExtensions.<Department, Set<Revision>>map(this.departments, _function);
     Iterable<Revision> _flatten = Iterables.<Revision>concat(_map);
     return IterableExtensions.<Revision>toList(_flatten);
   }
@@ -123,7 +123,7 @@ public class User {
   public Set<String> getDepartmentsNames() {
     final Function1<Department, String> _function = new Function1<Department, String>() {
       public String apply(final Department it) {
-        return User.this.name;
+        return it.getName();
       }
     };
     List<String> _map = ListExtensions.<Department, String>map(this.departments, _function);

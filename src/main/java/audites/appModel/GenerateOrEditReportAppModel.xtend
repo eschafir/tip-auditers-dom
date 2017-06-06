@@ -1,5 +1,6 @@
 package audites.appModel
 
+import audites.domain.Report
 import audites.domain.Revision
 import audites.domain.User
 import audites.repos.RepoReports
@@ -12,15 +13,18 @@ import org.uqbar.commons.utils.Observable
 class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 
 	Revision revision
+	Report report
 
 	new() {
 		super()
 		revision = new Revision
+//		report = new Report(revision)
 	}
 
 	new(User user, Revision revision) {
 		super(user)
 		this.revision = revision
+		report = new Report(revision)
 	}
 
 	def saveOrUpdateReport() {

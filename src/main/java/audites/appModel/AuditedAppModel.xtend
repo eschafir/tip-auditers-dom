@@ -82,8 +82,14 @@ class AuditedAppModel extends AuditorAppModel {
 
 	@Dependencies("revisionSelected")
 	def List<User> getObtainUsers() {
+		var list = newArrayList()
 		if (revisionSelected != null) {
-			revisionSelected.responsable.obtainUsers
+			for (User u : revisionSelected.responsable.obtainUsers) {
+				if (revisionSelected.attendant != u) {
+					list.add(u)
+				}
+			}
+			list
 		}
 	}
 

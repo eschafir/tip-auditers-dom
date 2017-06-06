@@ -79,7 +79,7 @@ class User {
 	}
 
 	def List<Revision> getRevisions() {
-		departments.map[revisions].flatten.toList
+		departments.map[it.revisions].flatten.toList
 	}
 
 	def Set<String> getDepartmentsNames() {

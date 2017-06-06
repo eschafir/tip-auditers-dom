@@ -43,7 +43,8 @@ class Revision {
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Department responsable
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+//	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	List<Requirement> requirements = newArrayList()
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -63,12 +64,12 @@ class Revision {
 		endDate = new Date
 		responsable = new Department
 		attendant = responsable.maxAuthority
-		report = new Report
+		report = new Report(this)
 	}
 
 	def void setName(String name) {
 		this.name = name
-		report.updateName(name)
+//		report.updateName(name)
 		ObservableUtils.firePropertyChanged(this, "name")
 	}
 
