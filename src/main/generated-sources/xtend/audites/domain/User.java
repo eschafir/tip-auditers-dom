@@ -3,7 +3,7 @@ package audites.domain;
 import audites.domain.Department;
 import audites.domain.Revision;
 import audites.domain.Role;
-import java.util.HashSet;
+import com.google.common.collect.Iterables;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.utils.Observable;
 
@@ -107,30 +110,24 @@ public class User {
   }
   
   public List<Revision> getRevisions() {
-    for (final Department d : this.departments) {
-      Set<Revision> _revisions = d.getRevisions();
-      for (final Revision r : _revisions) {
-        boolean _contains = this.revisions.contains(r);
-        boolean _not = (!_contains);
-        if (_not) {
-          this.revisions.add(r);
-        }
+    final Function1<Department, List<Revision>> _function = new Function1<Department, List<Revision>>() {
+      public List<Revision> apply(final Department it) {
+        return User.this.revisions;
       }
-    }
-    return this.revisions;
+    };
+    List<List<Revision>> _map = ListExtensions.<Department, List<Revision>>map(this.departments, _function);
+    Iterable<Revision> _flatten = Iterables.<Revision>concat(_map);
+    return IterableExtensions.<Revision>toList(_flatten);
   }
   
   public Set<String> getDepartmentsNames() {
-    HashSet<String> _xblockexpression = null;
-    {
-      HashSet<String> list = CollectionLiterals.<String>newHashSet();
-      for (final Department dep : this.departments) {
-        String _name = dep.getName();
-        list.add(_name);
+    final Function1<Department, String> _function = new Function1<Department, String>() {
+      public String apply(final Department it) {
+        return User.this.name;
       }
-      _xblockexpression = list;
-    }
-    return _xblockexpression;
+    };
+    List<String> _map = ListExtensions.<Department, String>map(this.departments, _function);
+    return IterableExtensions.<String>toSet(_map);
   }
   
   public void changeStatus(final Boolean b) {

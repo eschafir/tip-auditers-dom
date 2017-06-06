@@ -79,22 +79,11 @@ class User {
 	}
 
 	def List<Revision> getRevisions() {
-		for (Department d : departments) {
-			for (Revision r : d.revisions) {
-				if (!revisions.contains(r)) {
-					revisions.add(r)
-				}
-			}
-		}
-		return revisions
+		departments.map[revisions].flatten.toList
 	}
 
 	def Set<String> getDepartmentsNames() {
-		var list = newHashSet()
-		for (Department dep : departments) {
-			list.add(dep.name)
-		}
-		list
+		departments.map [ name ].toSet
 	}
 
 	def void changeStatus(Boolean b) {

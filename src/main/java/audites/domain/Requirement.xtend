@@ -10,6 +10,7 @@ import javax.persistence.Id
 import javax.persistence.ManyToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
 
 @Observable
@@ -48,30 +49,11 @@ class Requirement {
 		comments = ""
 	}
 
-	def void setComments(String c) {
-		comments = c
-		ObservableUtils.firePropertyChanged(this, "comments")
-	}
-
-	def String getComments() {
-		comments
-	}
-
-	def void setEvidences(List<Evidence> ev) {
-		evidences = ev
-		ObservableUtils.firePropertyChanged(this, "evidences")
-	}
-
-	def List<Evidence> getEvidences() {
-		evidences
-	}
-
 	def void setIsCompleted(Boolean b) {
 		isCompleted = b
-		ObservableUtils.firePropertyChanged(this, "requirementStatus")
-		ObservableUtils.firePropertyChanged(this, "isCompleted")
 	}
 
+	@Dependencies("isCompleted")
 	def String getRequirementStatus() {
 		if (isCompleted) {
 			"Completado"
@@ -88,9 +70,6 @@ class Requirement {
 
 	def void changeRequirmentStatus() {
 		isCompleted = !isCompleted
-		ObservableUtils.firePropertyChanged(this, "requirementStatus")
-		ObservableUtils.firePropertyChanged(this, "isCompleted")
-
 	}
 
 }

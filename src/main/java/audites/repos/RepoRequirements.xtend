@@ -29,6 +29,6 @@ class RepoRequirements extends RepoDefault<Requirement> {
 	def remove(Requirement req, Revision revision) {
 		revision.removeRequirement(req)
 		RepoRevisions.instance.update(revision)
-		super.remove(req)
+//		super.remove(req) SI ESTA EN CASCADA LO VUELA DIRECTAMENTE HIBERNATE
 	}
 }

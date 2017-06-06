@@ -24,6 +24,7 @@ class RepoRevisions extends RepoDefault<Revision> {
 			if (revision.archived == false) {
 				criteria.add(Restrictions.eq("archived", revision.archived))
 			}
+//			criteria.createAlias()
 		}
 	}
 }

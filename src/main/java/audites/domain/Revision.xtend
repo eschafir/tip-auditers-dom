@@ -9,10 +9,11 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.utils.Dependencies
 import org.uqbar.commons.utils.Observable
 
 @Observable
@@ -42,7 +43,7 @@ class Revision {
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Department responsable
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	List<Requirement> requirements = newArrayList()
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -71,15 +72,6 @@ class Revision {
 		ObservableUtils.firePropertyChanged(this, "name")
 	}
 
-	def void setRequirements(List<Requirement> req) {
-		requirements = req
-		ObservableUtils.firePropertyChanged(this, "requirements")
-	}
-
-	def List<Requirement> getRequirements() {
-		requirements
-	}
-
 	def addRequirement(Requirement r) {
 		if (!requirements.contains(r)) {
 			requirements.add(r)
@@ -98,25 +90,15 @@ class Revision {
 		requirements.filter[req|req.isCompleted].toList.size
 	}
 
-	def void setAverage(float avg) {
-		average = avg
-		ObservableUtils.firePropertyChanged(this, "average")
-		ObservableUtils.firePropertyChanged(this, "isCompleted")
-	}
-
 	def float getAverage() {
 		((completedRequirements * 1f ) / requirements.size)
-	}
-
-	def void setAttendant(User u) {
-		attendant = u
-		ObservableUtils.firePropertyChanged(this, "isDerivedToAuthor")
 	}
 
 	def User getAttendant() {
 		attendant
 	}
 
+	@Dependencies("average")
 	def Boolean getIsCompleted() {
 		return (completedRequirements == requirements.size)
 	}
@@ -125,6 +107,7 @@ class Revision {
 		endDate < new Date
 	}
 
+	@Dependencies("attendant")
 	def Boolean getIsDerivedToAuthor() {
 		attendant == author
 	}
