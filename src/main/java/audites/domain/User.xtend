@@ -83,7 +83,7 @@ class User {
 	}
 
 	def Set<String> getDepartmentsNames() {
-		departments.map [ name ].toSet
+		departments.map[it.name].toSet
 	}
 
 	def void changeStatus(Boolean b) {
