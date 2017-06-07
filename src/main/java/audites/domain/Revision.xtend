@@ -64,7 +64,8 @@ class Revision {
 		endDate = new Date
 		responsable = new Department
 		attendant = responsable.maxAuthority
-		report = new Report(this)
+//		report = new Report(this)
+		report = null
 	}
 
 	def void setName(String name) {

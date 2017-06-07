@@ -5,6 +5,7 @@ import audites.domain.Audited
 import audites.domain.Auditor
 import audites.domain.Department
 import audites.domain.Evidence
+import audites.domain.Observation
 import audites.domain.Report
 import audites.domain.Requirement
 import audites.domain.Revision
@@ -18,7 +19,7 @@ import org.hibernate.cfg.Configuration
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
-		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Report).
+		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Report).addAnnotatedClass(Observation).
 		addAnnotatedClass(Requirement).addAnnotatedClass(Evidence).addAnnotatedClass(Admin).addAnnotatedClass(Auditor).
 		addAnnotatedClass(Audited).buildSessionFactory()
 

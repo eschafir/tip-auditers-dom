@@ -3,7 +3,6 @@ package audites.appModel
 import audites.domain.Report
 import audites.domain.Revision
 import audites.domain.User
-import audites.repos.RepoReports
 import audites.repos.RepoRevisions
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
@@ -18,7 +17,6 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 	new() {
 		super()
 		revision = new Revision
-//		report = new Report(revision)
 	}
 
 	new(User user, Revision revision) {
@@ -28,7 +26,7 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 	}
 
 	def saveOrUpdateReport() {
-		RepoReports.instance.update(revision.report)
+		revision.report = report
 		RepoRevisions.instance.update(revision)
 	}
 
