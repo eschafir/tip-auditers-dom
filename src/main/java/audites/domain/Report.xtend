@@ -26,7 +26,6 @@ class Report {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	List<Observation> observations = newArrayList()
 
-//	HashMap<Requirement, String> observations = newHashMap()
 	new() {
 		name = ""
 	}
@@ -38,8 +37,4 @@ class Report {
 		}
 
 	}
-
-//	def updateName(String string) {
-//		name = "Observaciones de " + string
-//	}
 }

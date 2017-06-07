@@ -12,7 +12,6 @@ import org.uqbar.commons.utils.Observable
 class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 
 	Revision revision
-	Report report
 
 	new() {
 		super()
@@ -22,13 +21,14 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 	new(User user, Revision revision) {
 		super(user)
 		this.revision = revision
-		report = new Report(revision)
 	}
 
 	def saveOrUpdateReport() {
-		if (revision.report == null) {
-			revision.report = report
-		}
+		RepoRevisions.instance.update(revision)
+	}
+
+	def createReport() {
+		revision.report = new Report(revision)
 		RepoRevisions.instance.update(revision)
 	}
 
