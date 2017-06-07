@@ -26,7 +26,9 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 	}
 
 	def saveOrUpdateReport() {
-		revision.report = report
+		if (revision.report == null) {
+			revision.report = report
+		}
 		RepoRevisions.instance.update(revision)
 	}
 
