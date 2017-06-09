@@ -32,4 +32,12 @@ class GenerateOrEditReportAppModel extends MainApplicationAppModel {
 		RepoRevisions.instance.update(revision)
 	}
 
+	def getEditImage() {
+		"edit.png"
+	}
+
+	def void setEditImage(String p) {
+		editImage = p
+	}
+
 }

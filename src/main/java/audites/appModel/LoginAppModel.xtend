@@ -52,7 +52,6 @@ class LoginAppModel {
 
 	def validatePassword(String string) {
 		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
-//		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == string]) {
 			throw new UserException("Clave incorrecta")
 		}
 	}
