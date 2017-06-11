@@ -21,7 +21,7 @@ class Observation {
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Requirement requirement
-	
+
 	@Column(length=500)
 	String comment
 
@@ -34,4 +34,9 @@ class Observation {
 		requirement = req
 		comment = ""
 	}
+
+	def hasComment() {
+		comment != ""
+	}
+
 }

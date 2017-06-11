@@ -31,7 +31,7 @@ class Report {
 	}
 
 	new(Revision rev) {
-		name = "Reporte de revision " + rev.name
+		name = "Reporte: " + rev.name
 		for (Requirement req : rev.requirements) {
 			observations.add(new Observation(req))
 		}
