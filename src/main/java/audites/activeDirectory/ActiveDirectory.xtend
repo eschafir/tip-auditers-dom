@@ -14,19 +14,14 @@ class ActiveDirectory {
 
 	def boolean login(String username, String password) {
 		var env = new Hashtable()
-
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory")
-
 		env.put(Context.PROVIDER_URL, LDAP_URL)
-
 		env.put(Context.SECURITY_AUTHENTICATION, "simple")
-
 		env.put(Context.SECURITY_PRINCIPAL, username + "@PuenteHnos.local")
-
 		env.put(Context.SECURITY_CREDENTIALS, password)
 
 		try {
-			val ctx = new InitialDirContext(env)
+			new InitialDirContext(env)
 			return true
 		} catch (NamingException ex) {
 			Logger.getLogger(ActiveDirectory.getName()).log(Level.SEVERE, null, ex)
