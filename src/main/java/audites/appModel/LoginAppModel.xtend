@@ -1,9 +1,9 @@
 package audites.appModel
 
+import audites.activeDirectory.ActiveDirectory
 import audites.domain.User
 import audites.logger.LoginLog
 import audites.repos.RepoUsers
-import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
@@ -32,6 +32,7 @@ class LoginAppModel {
 	}
 
 	def validateUserStatus() {
+
 		if (RepoUsers.instance.searchByExample(userLoged).exists[it.enabled == false])
 			throw new UserException("El usuario no esta habilitado para ingresar al sistema.")
 	}
@@ -51,7 +52,10 @@ class LoginAppModel {
 	}
 
 	def validatePassword(String string) {
-		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
+		val instance = new ActiveDirectory()
+
+//		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
+		if (!instance.login(userLoged.username, passwordSubmited)) {
 			throw new UserException("Clave incorrecta")
 		}
 	}
