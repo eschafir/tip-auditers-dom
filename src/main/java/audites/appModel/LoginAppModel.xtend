@@ -4,6 +4,7 @@ import audites.activeDirectory.ActiveDirectory
 import audites.domain.User
 import audites.logger.LoginLog
 import audites.repos.RepoUsers
+import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Dependencies
@@ -54,9 +55,10 @@ class LoginAppModel {
 	def validatePassword(String string) {
 		val instance = new ActiveDirectory()
 
-//		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
-		if (!instance.login(userLoged.username, passwordSubmited)) {
-			throw new UserException("Clave incorrecta")
+		if (!RepoUsers.instance.searchByExample(userLoged).exists[it.password == DigestUtils.sha256Hex(string)]) {
+			if (!instance.login(userLoged.username, passwordSubmited)) {
+				throw new UserException("Clave incorrecta")
+			}
 		}
 	}
 
