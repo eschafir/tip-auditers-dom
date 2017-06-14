@@ -49,10 +49,6 @@ class Requirement {
 		comments = ""
 	}
 
-	def void setIsCompleted(Boolean b) {
-		isCompleted = b
-	}
-
 	@Dependencies("isCompleted")
 	def String getRequirementStatus() {
 		if (isCompleted) {
@@ -70,6 +66,11 @@ class Requirement {
 
 	def void changeRequirmentStatus() {
 		isCompleted = !isCompleted
+	}
+
+	def deleteEvidence(Evidence e) {
+		if(evidences.contains(e)) evidences.remove(e)
+		ObservableUtils.firePropertyChanged(this, "evidences")
 	}
 
 }

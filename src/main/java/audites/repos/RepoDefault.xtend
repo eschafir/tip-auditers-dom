@@ -19,9 +19,9 @@ import org.hibernate.cfg.Configuration
 
 abstract class RepoDefault<T> {
 	private static final SessionFactory sessionFactory = new Configuration().configure().addAnnotatedClass(User).
-		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Report).addAnnotatedClass(Observation).
-		addAnnotatedClass(Requirement).addAnnotatedClass(Evidence).addAnnotatedClass(Admin).addAnnotatedClass(Auditor).
-		addAnnotatedClass(Audited).buildSessionFactory()
+		addAnnotatedClass(Department).addAnnotatedClass(Revision).addAnnotatedClass(Report).
+		addAnnotatedClass(Observation).addAnnotatedClass(Requirement).addAnnotatedClass(Evidence).
+		addAnnotatedClass(Admin).addAnnotatedClass(Auditor).addAnnotatedClass(Audited).buildSessionFactory()
 
 	def abstract Class<T> getEntityType()
 
@@ -70,7 +70,6 @@ abstract class RepoDefault<T> {
 
 	def void update(T t) {
 		try {
-//			t.doBeforeCreate
 			session.beginTransaction
 			session.merge(t)
 			session.getTransaction.commit

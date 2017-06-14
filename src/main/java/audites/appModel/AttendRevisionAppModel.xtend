@@ -12,16 +12,21 @@ import audites.repos.RepoRequirements
 import audites.repos.RepoRevisions
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.ObservableUtils
+import audites.repos.RepoEvidences
+import org.uqbar.commons.utils.Dependencies
 
 @Observable
 @Accessors
 class AttendRevisionAppModel extends NewRevisionAppModel {
 
 	String selectedFile
+	Evidence evidenceSelected
 
 	new(Revision revision, User user) {
 		super(revision, user)
 		selectedFile = ""
+		evidenceSelected = null
 	}
 
 	def void setSelectedFile(String s) {
@@ -35,6 +40,7 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 		selectedRequirement.changeRequirmentStatus
 		// mailer.sendEmail
 		logger.write
+		ObservableUtils.firePropertyChanged(this, "hasRequirements")
 	}
 
 	def revisionCompleted() {
@@ -69,4 +75,14 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 	def Boolean revisionCompletedAndUserIsNotMaxAuthority() {
 		revisionCompleted && userLoged != revisionMaxAuthority
 	}
+
+	def deleteEvidence() {
+		RepoEvidences.instance.remove(selectedRequirement, evidenceSelected)
+	}
+
+	@Dependencies("evidenceSelected")
+	def boolean getHasEvidence() {
+		selectedRequirement != null && !selectedRequirement.isCompleted && evidenceSelected != null
+	}
+
 }
