@@ -41,6 +41,7 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 		// mailer.sendEmail
 		logger.write
 		ObservableUtils.firePropertyChanged(this, "hasRequirements")
+		ObservableUtils.firePropertyChanged(this, "hasEvidence")
 	}
 
 	def revisionCompleted() {
