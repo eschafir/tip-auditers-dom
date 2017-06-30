@@ -44,7 +44,7 @@ class PdfExporter {
 	def addTitlePage(Document document) throws DocumentException {
 
 		var preface = new Paragraph()
-		val img = Image.getInstance("C:/Users/eschafir/Desktop/auditers.png")
+		val img = Image.getInstance("C:/Users/Esteban/git/tip-auditers-dom/src/main/resources/auditers.png")
 		img.alignment = Image.ALIGN_CENTER
 		addEmptyLine(preface, 2)
 		preface.add(img)
