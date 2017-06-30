@@ -8,6 +8,7 @@ import com.itextpdf.text.Chapter
 import com.itextpdf.text.Document
 import com.itextpdf.text.DocumentException
 import com.itextpdf.text.Font
+import com.itextpdf.text.Image
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import java.io.FileOutputStream
@@ -43,10 +44,18 @@ class PdfExporter {
 	def addTitlePage(Document document) throws DocumentException {
 
 		var preface = new Paragraph()
+		val img = Image.getInstance("C:/Users/eschafir/Desktop/auditers.png")
+		img.alignment = Image.ALIGN_CENTER
+		addEmptyLine(preface, 2)
+		preface.add(img)
+		addEmptyLine(preface, 5)
+		preface.add(new Paragraph(revision.name.toUpperCase, PdfExporter.headerFont))
 		addEmptyLine(preface, 1)
-		preface.add(new Paragraph("Reporte de revision: " + revision.name, audites.pdf.PdfExporter.headerFont))
+		preface.add(new Paragraph("Reporte de revisión", PdfExporter.subFont))
+		addEmptyLine(preface, 3)
+		preface.add(new Paragraph("Generado por: " + revision.author.name, smallBold))
 		addEmptyLine(preface, 1)
-		preface.add(new Paragraph("Reporte generado por: " + revision.author.name + ", " + new Date(), smallBold))
+		preface.add(new Paragraph("Fecha: " + new Date().toGMTString, smallBold))
 		addEmptyLine(preface, 8)
 
 		document.add(preface)
@@ -55,7 +64,7 @@ class PdfExporter {
 	}
 
 	def addContent(Document document) throws DocumentException {
-		var anchor = new Anchor("Observaciones", audites.pdf.PdfExporter.headerFont)
+		var anchor = new Anchor("Observaciones", PdfExporter.headerFont)
 		anchor.setName("Observaciones")
 
 		var catPart = new Chapter(new Paragraph(anchor), 1)
