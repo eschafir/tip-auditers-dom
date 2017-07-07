@@ -35,8 +35,12 @@ class MainApplicationAppModel {
 	def getPathImagen() {
 		"company.png"
 	}
-	
-	def void setPathImagen(String p){
+
+	def void setPathImagen(String p) {
 		pathImagen = p
+	}
+
+	def getAppImagen() {
+		"auditers.png"
 	}
 }

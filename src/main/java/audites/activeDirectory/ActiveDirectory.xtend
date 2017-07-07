@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ActiveDirectory {
-	static final String LDAP_URL = "ldap://phsrvdc1.puentehnos.local:389"
+	static final String LDAP_URL = "ldap://192.168.23.132:389"
 
 	def boolean login(String username, String password) {
 		var env = new Hashtable()

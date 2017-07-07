@@ -30,10 +30,12 @@ class AttendRevisionAppModel extends NewRevisionAppModel {
 	}
 
 	def void setSelectedFile(String s) {
-		selectedFile = s
-		selectedRequirement.addEvidence(new Evidence(selectedFile))
-		RepoRequirements.instance.update(selectedRequirement)
-		RepoRevisions.instance.update(revision)
+		if (s != null) {
+			selectedFile = s
+			selectedRequirement.addEvidence(new Evidence(selectedFile))
+			RepoRequirements.instance.update(selectedRequirement)
+			RepoRevisions.instance.update(revision)
+		}
 	}
 
 	def changeRequirmentStatus() {
